@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import AppBarSearchComponent from '../appbar/appbar.component';
+import AppBarSearchComponent from './../appbar/appbar.component';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { colors, CssBaseline, Divider, Grid, styled, Tooltip, Typography } from '@mui/material';
 import { MenuLinkList } from './constants/menuslink';
@@ -19,7 +19,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-export default function SwipeableTemporaryDrawer() {
+const SwipeableTemporaryDrawer: React.FC = () => {
   const [state, setState] = React.useState<boolean>(false);
   const navigateOn = useNavigate();
 
@@ -96,3 +96,5 @@ export default function SwipeableTemporaryDrawer() {
     </React.Fragment>
   );
 }
+
+export default SwipeableTemporaryDrawer
