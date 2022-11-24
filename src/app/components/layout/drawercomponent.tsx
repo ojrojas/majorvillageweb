@@ -10,6 +10,7 @@ import AppBarSearchComponent from './../appbar/appbar.component';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { colors, CssBaseline, Divider, Grid, styled, Tooltip, Typography } from '@mui/material';
 import { MenuLinkList } from './constants/menuslink';
+import styles from './drawercomponent.module.css';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -43,7 +44,7 @@ const SwipeableTemporaryDrawer: React.FC = () => {
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}>
-        <CssBaseline />
+      <CssBaseline />
       <DrawerHeader>
         {state ? <Typography style={{ textAlign: 'center', width: '100%' }} variant='h6' component={'span'} >
           Major Village
@@ -80,7 +81,6 @@ const SwipeableTemporaryDrawer: React.FC = () => {
 
   return (
     <React.Fragment>
-      <AppBarSearchComponent drawerWidth={230} onClick={toggleDrawer(!state)} open={state} />
       <SwipeableDrawer
         anchor={'left'}
         open={state}
@@ -88,11 +88,15 @@ const SwipeableTemporaryDrawer: React.FC = () => {
         onOpen={toggleDrawer(true)}>
         {list()}
       </SwipeableDrawer>
-      <Grid container style={{ marginTop: 65, backgroundColor: 'var(--background)' }} spacing={0}>
-        <Grid item xs={12} md={12} sm={12} lg={12}>
-          <Outlet />
+      <Box component={'div'} >
+        <AppBarSearchComponent drawerWidth={230} onClick={toggleDrawer(!state)} open={state} />
+        <Grid className={styles.container} style={{ backgroundColor: 'var(--background)' }}>
+          <DrawerHeader />
+          <Grid item xs={12} md={12} sm={12} lg={12}>
+            <Outlet />
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </React.Fragment>
   );
 }
