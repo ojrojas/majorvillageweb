@@ -5,6 +5,7 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Stack } from "@mui/material";
 import { useAppSelector } from "../../hooks";
+import { createPortal } from "react-dom";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 	props,
@@ -41,10 +42,16 @@ interface Props {
   autoHideDuration?: number | null | undefined;
 }
 
+const container = document.getElementById("modal-root")!;
+
+
 const SnackbarMajorVillage: React.FC<Props> = ({ title, autoHideDuration, handleClose, transition }) => {
 	const snackbarState = useAppSelector(state => state.snack.optionSnackBar);
-	return (
-		<Stack spacing={2} sx={{ width: "100%" }}>
+
+	if(!snackbarState.open) return null;
+
+	return createPortal(
+		<Stack sx={{ width: "100%", zIndex:10 }}>
 			<Snackbar
 				open={snackbarState.open}
 				onClose={handleClose}
@@ -58,7 +65,8 @@ const SnackbarMajorVillage: React.FC<Props> = ({ title, autoHideDuration, handle
 					{snackbarState.message}
 				</Alert>
 			</Snackbar>
-		</Stack>
+		</Stack>,
+		container
 	);
 };
 

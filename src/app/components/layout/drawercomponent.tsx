@@ -95,7 +95,7 @@ const SwipeableTemporaryDrawer: React.FC = () => {
 			</SwipeableDrawer>
 			<Box component={"div"} >
 				<AppBarSearchComponent onClick={toggleDrawer(true)} />
-				<Grid className={styles.container} style={{ backgroundColor: "var(--background)" }}>
+				<Grid className={styles.containerdrawer}>
 					<Grid item xs={12} md={12} sm={12} lg={12}>
 						<Outlet />
 					</Grid>

@@ -40,18 +40,17 @@ const FormLoginComponent: React.FC = () => {
 		}));
 	}));
 
-
 	return (
 		<React.Fragment>
 			<Grid container className={styles.container}>
-				<SnackbarMajorVillage
-					title='Login'
-					transition={TransitionLeft}
-					handleClose={() => {
-						dispatch(closeSnackBarMajorVillage());
-					}} />
-				<Paper elevation={15}>
-					<Box component='form' noValidate className={styles.form}>
+				<Paper elevation={12}>
+					<Grid className={styles.form}>
+						<SnackbarMajorVillage
+							title='Login'
+							transition={TransitionLeft}
+							handleClose={() => {
+								dispatch(closeSnackBarMajorVillage());
+							}} />
 						<Typography variant={"body2"} color={colors.blue[400]}>
 							Sign In
 						</Typography>
@@ -71,7 +70,6 @@ const FormLoginComponent: React.FC = () => {
 							type={"password"}
 							register={register("password", { required: true })}
 							errors={errors} />
-						{/* <CheckBoxComponent label='Remember Me!'  register={register('rememberMe')}/> */}
 						<Divider />
 						<Grid className={styles.buttons}>
 							<Button
@@ -82,7 +80,7 @@ const FormLoginComponent: React.FC = () => {
 								Sign In
 							</Button>
 						</Grid>
-					</Box>
+					</Grid>
 				</Paper>
 			</Grid>
 		</React.Fragment>
