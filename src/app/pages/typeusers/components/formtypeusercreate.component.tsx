@@ -41,36 +41,36 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose, typeUserExists,
 			typeUser.createdBy = user?.id as string;
 			typeUser.createdOn = new Date();
 			await dispatch(createTypeUser({ typeUser })).unwrap().then(async (response) => {
-				if (response?.typeUserCreated === null) {
-					await dispatch(openSnackBarMajorVillage({
-						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error"
-					}));
-				}
-				else {
-					await dispatch(openSnackBarMajorVillage({
-						message: "Type User created!",
-						severity: "success"
-					}));
-				}
+				// if (response?.typeUserCreated === null) {
+				// 	await dispatch(openSnackBarMajorVillage({
+				// 		message: `Error, ${JSON.stringify(error, null, 2)}`,
+				// 		severity: "error"
+				// 	}));
+				// }
+				// else {
+				// 	await dispatch(openSnackBarMajorVillage({
+				// 		message: "Type User created!",
+				// 		severity: "success"
+				// 	}));
+				// }
 			});
 		}
 		else {
 			typeUser.modifiedBy = user?.id as string;
 			typeUser.modifiedOn = new Date();
 			await dispatch(updateTypeUser({ typeUser })).unwrap().then(async (response) => {
-				if (response?.typeUserUpdated === null) {
-					await dispatch(openSnackBarMajorVillage({
-						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error"
-					}));
-				}
-				else {
-					await dispatch(openSnackBarMajorVillage({
-						message: "Type User updated!",
-						severity: "success"
-					}));
-				}
+				// if (response?.typeUserUpdated === null) {
+				// 	await dispatch(openSnackBarMajorVillage({
+				// 		message: `Error, ${JSON.stringify(error, null, 2)}`,
+				// 		severity: "error"
+				// 	}));
+				// }
+				// else {
+				// 	await dispatch(openSnackBarMajorVillage({
+				// 		message: "Type User updated!",
+				// 		severity: "success"
+				// 	}));
+				// }
 			});
 		}
 		await dispatch(getAllTypeUsers());
@@ -78,11 +78,11 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose, typeUserExists,
 
 	return (
 		<React.Fragment>
-			<SnackbarMajorVillage
+			{/* <SnackbarMajorVillage
 				handleClose={handlerClose}
 				title={"Type Users"}
 				autoHideDuration={2000}
-				transition={TransitionLeft} />
+				transition={TransitionLeft} /> */}
 			<LoadingBackdropComponent open={loading} />
 			<Box className={styles.formpaper} component={"form"} onSubmit={handlerSubmit}>
 				<Grid container spacing={3}>

@@ -5,11 +5,13 @@ const initialOptions: MajorVillageSnackBarOptions = {
 	open: false,
 	message: "",
 	severity: "info",
+	autoHideDuration: undefined,
+	title: ""
 };
 
 interface State {
-    optionSnackBar: MajorVillageSnackBarOptions;
-    optionSnackBarActions: MajorVillageSnackBarOptions;
+	optionSnackBar: MajorVillageSnackBarOptions;
+	optionSnackBarActions: MajorVillageSnackBarOptions;
 }
 
 const initialState: State = {
@@ -21,24 +23,29 @@ const snackBarSlice = createSlice({
 	name: "snackbar",
 	initialState: initialState,
 	reducers: {
-		openSnackBarMajorVillage: (state, action: PayloadAction<{ message: string, severity: "success" | "info" | "warning" | "error" }>) => {
+		openSnackBarMajorVillage: (state, action: PayloadAction<MajorVillageSnackBarOptions>) => {
 			state.optionSnackBar.message = action.payload.message;
 			state.optionSnackBar.open = true;
 			state.optionSnackBar.severity = action.payload.severity;
+			state.optionSnackBar.title = action.payload.title;
+			state.optionSnackBar.autoHideDuration = action.payload.autoHideDuration;
 		},
 		closeSnackBarMajorVillage: (state) => {
-			state.optionSnackBar.open = false;
-			state.optionSnackBar.message = "";
+			state.optionSnackBar = initialOptions;
 		},
-		openSnackBarActionsMajorVillage: (state, action: PayloadAction<{ message: string, severity: "success" | "info" | "warning" | "error" }>) => {
+		openSnackBarActionsMajorVillage: (state, action: PayloadAction<MajorVillageSnackBarOptions>) => {
 			state.optionSnackBarActions.message = action.payload.message;
 			state.optionSnackBarActions.open = true;
 			state.optionSnackBarActions.severity = action.payload.severity;
+			state.optionSnackBar.title = action.payload.title;
+			state.optionSnackBar.autoHideDuration = action.payload.autoHideDuration;
 		},
 		closeSnackBarActionsMajorVillage: (state) => {
-			state.optionSnackBarActions.open = false;
-			state.optionSnackBarActions.message = "";
+			state.optionSnackBarActions = initialOptions;
 		},
+		resultAction: (state, action: PayloadAction<boolean>) => {
+			state.optionSnackBarActions.resultAction=  action.payload
+		}
 	}
 });
 
@@ -47,5 +54,6 @@ export const {
 	openSnackBarMajorVillage,
 	closeSnackBarMajorVillage,
 	openSnackBarActionsMajorVillage,
-	closeSnackBarActionsMajorVillage 
+	closeSnackBarActionsMajorVillage,
+	resultAction
 } = snackBarSlice.actions;

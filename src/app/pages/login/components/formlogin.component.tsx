@@ -18,7 +18,7 @@ import SnackbarMajorVillage, { TransitionLeft } from "../../../components/snackb
 const FormLoginComponent: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const navigateOn = useNavigate();
-	const {logged } = useAppSelector(state => state.login);
+	const { logged } = useAppSelector(state => state.login);
 	const { register, handleSubmit, formState: { errors } } = useForm<ILoginApplicationRequest>({
 		mode: "all",
 		resolver: useYupValidationResolver(schema)
@@ -27,7 +27,7 @@ const FormLoginComponent: React.FC = () => {
 	React.useEffect(() => {
 		if (logged) navigateOn(RouteConstanstPage.dashboard);
 		else dispatch(updateLogged(false));
-	}, [dispatch,navigateOn,logged]);
+	}, [dispatch, navigateOn, logged]);
 
 	const onSubmit = handleSubmit(async (data) => await dispatch(login(data)).unwrap().then(async (response: ILoginApplicationResponse) => {
 		if (response.token !== null) {
@@ -36,7 +36,14 @@ const FormLoginComponent: React.FC = () => {
 		}
 		else dispatch(openSnackBarMajorVillage({
 			message: "Error username or password invalid!",
-			severity: "info",
+			severity: "warning",
+			title: "Login",			
+		}));
+	}).catch(response => {
+		dispatch(openSnackBarMajorVillage({
+			message: response.message,
+			severity: "error",
+			title: "Login"
 		}));
 	}));
 
@@ -45,12 +52,6 @@ const FormLoginComponent: React.FC = () => {
 			<Grid container className={styles.container}>
 				<Paper elevation={12}>
 					<Grid className={styles.form}>
-						<SnackbarMajorVillage
-							title='Login'
-							transition={TransitionLeft}
-							handleClose={() => {
-								dispatch(closeSnackBarMajorVillage());
-							}} />
 						<Typography variant={"body2"} color={colors.blue[400]}>
 							Sign In
 						</Typography>

@@ -19,10 +19,10 @@ const DetailTypeUserComponent : React.FC <Props>= ({detailTypeUser, onClose}) =>
 	};
 
 	const onPushDelete = () => {
-		dispatch(openSnackBarActionsMajorVillage({
-			message:"Do you sure delete this type user?",
-			severity: "info"
-		}));
+		// dispatch(openSnackBarActionsMajorVillage({
+		// 	message:"Do you sure delete this type user?",
+		// 	severity: "info"
+		// }));
 	};
 
 	return(
@@ -33,13 +33,13 @@ const DetailTypeUserComponent : React.FC <Props>= ({detailTypeUser, onClose}) =>
 				resultAction={(result: boolean) => operationDelete(result)} 
 				transition={TransitionLeft} 
 				autoHideDuration={undefined} />
-			<SnackbarMajorVillage 
+			{/* <SnackbarMajorVillage 
 				handleClose={()=> {
 					dispatch(closeSnackBarMajorVillage());
 					onClose();
 				}} 
 				title={""} 
-				transition={undefined} />
+				transition={undefined} /> */}
 			<Box>
 				<Grid>
 					<CardContent>

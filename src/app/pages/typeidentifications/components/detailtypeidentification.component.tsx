@@ -17,25 +17,25 @@ const DetailTypeIdentificationComponent: React.FC<Props> = ({ detailTypeIdentifi
 
 	const operationDelete = (result: boolean) => {
 		if(result){
-			dispatch(deleteTypeIdentification({id: detailTypeIdentification?.id})).unwrap().then(async (response)=> {
-				if(response.typeIdentificationDeleted)
-					await dispatch(openSnackBarMajorVillage({
-						message: "Type identification deleted success",
-						severity: "success"
-					}));
-				else await dispatch(openSnackBarMajorVillage({
-					message: "Error, do not deleted type identification",
-					severity: "error"
-				}));
-			});
+			// dispatch(deleteTypeIdentification({id: detailTypeIdentification?.id})).unwrap().then(async (response)=> {
+			// 	if(response.typeIdentificationDeleted)
+			// 		await dispatch(openSnackBarMajorVillage({
+			// 			message: "Type identification deleted success",
+			// 			severity: "success"
+			// 		}));
+			// 	else await dispatch(openSnackBarMajorVillage({
+			// 		message: "Error, do not deleted type identification",
+			// 		severity: "error"
+			// 	}));
+			// });
 		}
 	};
 
 	const onPushDelete = () => {
-		dispatch(openSnackBarActionsMajorVillage({
-			message: "Do you sure delete this type identification?",
-			severity: "info"
-		}));
+		// dispatch(openSnackBarActionsMajorVillage({
+		// 	message: "Do you sure delete this type identification?",
+		// 	severity: "info"
+		// }));
 	};
 
 	return (
@@ -46,13 +46,13 @@ const DetailTypeIdentificationComponent: React.FC<Props> = ({ detailTypeIdentifi
 				resultAction={(result) => operationDelete(result)} 
 				transition={TransitionLeft} 
 				autoHideDuration={3000} />
-			<SnackbarMajorVillage 
+			{/* <SnackbarMajorVillage 
 				handleClose={()=> {
 					dispatch(closeSnackBarMajorVillage());
 					onClose();
 				}} 
 				title={"Type identification"} 
-				transition={TransitionLeft} />
+				transition={TransitionLeft} /> */}
 			<Box>
 				<Grid>
 					<CardContent>

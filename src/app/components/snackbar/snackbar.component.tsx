@@ -4,8 +4,9 @@ import Slide, { SlideProps } from "@mui/material/Slide";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Stack } from "@mui/material";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { createPortal } from "react-dom";
+import { closeSnackBarMajorVillage } from "./redux/snackbarslice";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 	props,
@@ -35,39 +36,27 @@ export function TransitionDown(props: TransitionProps) {
 	return <Slide {...props} direction="down" />;
 }
 
-interface Props {
-  handleClose: () => void;
-  title: string;
-  transition: React.ComponentType<TransitionProps> | undefined;
-  autoHideDuration?: number | null | undefined;
-}
-
-const container = document.getElementById("modal-root")!;
-
-
-const SnackbarMajorVillage: React.FC<Props> = ({ title, autoHideDuration, handleClose, transition }) => {
+const SnackbarMajorVillage: React.FC = () => {
 	const snackbarState = useAppSelector(state => state.snack.optionSnackBar);
+	const dispatch = useAppDispatch();
 
 	if(!snackbarState.open) return null;
 
-	return createPortal(
-		<Stack sx={{ width: "100%", zIndex:10 }}>
+	return (<Stack sx={{ width: "100%", zIndex:10 }}>
 			<Snackbar
 				open={snackbarState.open}
-				onClose={handleClose}
-				TransitionComponent={transition}
-				autoHideDuration={autoHideDuration}
-				key={transition ? transition.name : ""}>
-				<Alert onClose={handleClose} severity={snackbarState.severity} sx={{ width: "100%" }}>
+				onClose={()=> dispatch(closeSnackBarMajorVillage())}
+				TransitionComponent={TransitionLeft}
+				autoHideDuration={snackbarState.autoHideDuration}
+				key={"snackbar-major-village"}>
+				<Alert onClose={()=> dispatch(closeSnackBarMajorVillage())} severity={snackbarState.severity} sx={{ width: "100%" }}>
 					<AlertTitle>
-						{title}
+						{snackbarState.title}
 					</AlertTitle>
 					{snackbarState.message}
 				</Alert>
 			</Snackbar>
-		</Stack>,
-		container
-	);
+		</Stack>);
 };
 
 export default SnackbarMajorVillage;

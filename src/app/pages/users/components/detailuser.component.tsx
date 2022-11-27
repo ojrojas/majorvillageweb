@@ -36,18 +36,18 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
 		if (result) {
 			dispatch(deleteUser({ id:  userDetail?.id })).unwrap().then(async (response) => {
 				dispatch(closeSnackBarActionsMajorVillage());
-				if (response?.userDeleted !== null) {
-					await dispatch(openSnackBarMajorVillage({
-						message: "User is deleted!",
-						severity: "success",
-					}));
-				} else {
-					await dispatch(openSnackBarMajorVillage({
-						message: "Error user is not delete",
-						severity: "error",
-					}));
-					console.error("Error request: ", error);
-				}
+				// if (response?.userDeleted !== null) {
+				// 	await dispatch(openSnackBarMajorVillage({
+				// 		message: "User is deleted!",
+				// 		severity: "success",
+				// 	}));
+				// } else {
+				// 	await dispatch(openSnackBarMajorVillage({
+				// 		message: "Error user is not delete",
+				// 		severity: "error",
+				// 	}));
+				// 	console.error("Error request: ", error);
+				// }
 				await dispatch(getAllUsers());
 			});
 		}
@@ -55,18 +55,18 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
 
 	const createApplicationUser = async () => {
 		setType("add");
-		await dispatch(openSnackBarActionsMajorVillage({
-			message: "Do you assign username and password?",
-			severity: "warning",
-		}));
+		// await dispatch(openSnackBarActionsMajorVillage({
+		// 	message: "Do you assign username and password?",
+		// 	severity: "warning",
+		// }));
 	};
 
 	const operationDelete = async () => {
 		setType("delete");
-		await dispatch(openSnackBarActionsMajorVillage({
-			message: "Do you delete this user?",
-			severity: "warning",
-		}));
+		// await dispatch(openSnackBarActionsMajorVillage({
+		// 	message: "Do you delete this user?",
+		// 	severity: "warning",
+		// }));
 	};
 
 	return (
@@ -77,14 +77,14 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
 				autoHideDuration={null}
 				resultAction={(e) => pushAcceptCallback(e, type)}
 				transition={TransitionRight} />
-			<SnackbarMajorVillage
+			{/* <SnackbarMajorVillage
 				title={"User"}
 				handleClose={() => {
 					dispatch(closeSnackBarMajorVillage());
 					onClose();
 				}}
 				autoHideDuration={3000}
-				transition={TransitionRight} />
+				transition={TransitionRight} /> */}
 			<Box>
 				<Grid>
 					<CardContent>

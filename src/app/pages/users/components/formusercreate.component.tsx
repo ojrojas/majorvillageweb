@@ -60,36 +60,36 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 			user.createdBy = state.user?.id as string;
 			user.createdOn = new Date();
 			dispatch(createUser({ user })).unwrap().then(async (response) => {
-				if (response?.userCreated === null) {
-					dispatch(openSnackBarMajorVillage({
-						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error"
-					}));
-				}
-				else {
-					dispatch(openSnackBarMajorVillage({
-						message: "User created!",
-						severity: "success"
-					}));
-				}
+				// if (response?.userCreated === null) {
+				// 	dispatch(openSnackBarMajorVillage({
+				// 		message: `Error, ${JSON.stringify(error, null, 2)}`,
+				// 		severity: "error"
+				// 	}));
+				// }
+				// else {
+				// 	dispatch(openSnackBarMajorVillage({
+				// 		message: "User created!",
+				// 		severity: "success"
+				// 	}));
+				// }
 			});
 		}
 		else {
 			user.modifiedBy = state.user?.id as string;
 			user.modifiedOn = new Date();
 			await dispatch(updateUser({ user })).unwrap().then(async (response) => {
-				if (response?.userUpdated === null) {
-					await dispatch(openSnackBarMajorVillage({
-						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error"
-					}));
-				}
-				else {
-					await dispatch(openSnackBarMajorVillage({
-						message: "User created!",
-						severity: "success"
-					}));
-				}
+				// if (response?.userUpdated === null) {
+				// 	await dispatch(openSnackBarMajorVillage({
+				// 		message: `Error, ${JSON.stringify(error, null, 2)}`,
+				// 		severity: "error"
+				// 	}));
+				// }
+				// else {
+				// 	await dispatch(openSnackBarMajorVillage({
+				// 		message: "User created!",
+				// 		severity: "success"
+				// 	}));
+				// }
 			});
 		}
 		await dispatch(getAllUsers());
@@ -97,11 +97,11 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 
 	return (
 		<React.Fragment>
-			<SnackbarMajorVillage
+			{/* <SnackbarMajorVillage
 				handleClose={() => { dispatch(closeSnackBarMajorVillage()); onClose(); }}
 				title={"User"}
 				autoHideDuration={2000}
-				transition={TransitionRight} />
+				transition={TransitionRight} /> */}
 			<LoadingBackdropComponent open={loading} />
 			<Box className={styles.formpaper} component={"form"} onSubmit={handlerSubmit}>
 				<Grid container spacing={3}>

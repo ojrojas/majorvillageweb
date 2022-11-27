@@ -44,13 +44,15 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 				if (response?.typeIdentificationCreated === null) {
 					await dispatch(openSnackBarMajorVillage({
 						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error"
+						severity: "error", 
+						title: "Type Identification"
 					}));
 				}
 				else {
 					await dispatch(openSnackBarMajorVillage({
 						message: "Type identification created!",
-						severity: "success"
+						severity: "success", 
+						title: "Type Identification"
 					}));
 				}
 			});
@@ -62,13 +64,15 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 				if (response?.typeIdentificationUpdated === null) {
 					await dispatch(openSnackBarMajorVillage({
 						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error"
+						severity: "error",
+						title: "Type Identification"
 					}));
 				}
 				else {
 					await dispatch(openSnackBarMajorVillage({
 						message: "Type identification updated! ",
-						severity: "success"
+						severity: "success",
+						title: "Type Identification"
 					}));
 				}
 			});
@@ -78,11 +82,6 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 
 	return (
 		<React.Fragment>
-			<SnackbarMajorVillage
-				handleClose={handlerClose}
-				title={"Type Identification"}
-				autoHideDuration={2000}
-				transition={TransitionLeft} />
 			<LoadingBackdropComponent open={loading} />
 			<Box className={styles.formpaper} component={"form"} onSubmit={handlerSubmit}>
 				<Grid container spacing={3}>
