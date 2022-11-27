@@ -27,12 +27,12 @@ const DetailTypeUserComponent : React.FC <Props>= ({detailTypeUser, onClose}) =>
 
 	return(
 		<React.Fragment>
-			<SnackbarMajorVillageAction 
+			{/* <SnackbarMajorVillageAction 
 				title={""} 
 				handleClose={()=> dispatch(closeSnackBarActionsMajorVillage())} 
 				resultAction={(result: boolean) => operationDelete(result)} 
 				transition={TransitionLeft} 
-				autoHideDuration={undefined} />
+				autoHideDuration={undefined} /> */}
 			{/* <SnackbarMajorVillage 
 				handleClose={()=> {
 					dispatch(closeSnackBarMajorVillage());

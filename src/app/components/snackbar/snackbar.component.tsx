@@ -43,20 +43,20 @@ const SnackbarMajorVillage: React.FC = () => {
 	if(!snackbarState.open) return null;
 
 	return (<Stack sx={{ width: "100%", zIndex:10 }}>
-			<Snackbar
-				open={snackbarState.open}
-				onClose={()=> dispatch(closeSnackBarMajorVillage())}
-				TransitionComponent={TransitionLeft}
-				autoHideDuration={snackbarState.autoHideDuration}
-				key={"snackbar-major-village"}>
-				<Alert onClose={()=> dispatch(closeSnackBarMajorVillage())} severity={snackbarState.severity} sx={{ width: "100%" }}>
-					<AlertTitle>
-						{snackbarState.title}
-					</AlertTitle>
-					{snackbarState.message}
-				</Alert>
-			</Snackbar>
-		</Stack>);
+		<Snackbar
+			open={snackbarState.open}
+			onClose={()=> dispatch(closeSnackBarMajorVillage())}
+			TransitionComponent={TransitionLeft}
+			autoHideDuration={snackbarState.autoHideDuration}
+			key={"snackbar-major-village"}>
+			<Alert onClose={()=> dispatch(closeSnackBarMajorVillage())} severity={snackbarState.severity} sx={{ width: "100%" }}>
+				<AlertTitle>
+					{snackbarState.title}
+				</AlertTitle>
+				{snackbarState.message}
+			</Alert>
+		</Snackbar>
+	</Stack>);
 };
 
 export default SnackbarMajorVillage;

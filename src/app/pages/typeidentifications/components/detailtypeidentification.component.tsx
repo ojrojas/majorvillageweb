@@ -40,12 +40,12 @@ const DetailTypeIdentificationComponent: React.FC<Props> = ({ detailTypeIdentifi
 
 	return (
 		<React.Fragment>
-			<SnackbarMajorVillageAction 
+			{/* <SnackbarMajorVillageAction 
 				title={"Type identification"} 
 				handleClose={ ()=> dispatch(closeSnackBarActionsMajorVillage()) } 
 				resultAction={(result) => operationDelete(result)} 
 				transition={TransitionLeft} 
-				autoHideDuration={3000} />
+				autoHideDuration={3000} /> */}
 			{/* <SnackbarMajorVillage 
 				handleClose={()=> {
 					dispatch(closeSnackBarMajorVillage());

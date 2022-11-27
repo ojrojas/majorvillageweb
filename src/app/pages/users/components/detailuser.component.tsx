@@ -71,12 +71,12 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
 
 	return (
 		<React.Fragment>
-			<SnackbarMajorVillageAction
+			{/* <SnackbarMajorVillageAction
 				title={"User"}
 				handleClose={() => dispatch(closeSnackBarActionsMajorVillage())}
 				autoHideDuration={null}
 				resultAction={(e) => pushAcceptCallback(e, type)}
-				transition={TransitionRight} />
+				transition={TransitionRight} /> */}
 			{/* <SnackbarMajorVillage
 				title={"User"}
 				handleClose={() => {

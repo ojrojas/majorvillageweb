@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { TransitionProps } from "@mui/material/transitions";
 
 export interface MajorVillageSnackBarOptions {
