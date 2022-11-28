@@ -1,11 +1,8 @@
-import React from "react";
-import { TransitionProps } from "@mui/material/transitions";
-
 export interface MajorVillageSnackBarOptions {
-    open?: boolean;
     message: string;
-    title: string;
     severity: "success" | "info" | "warning" | "error";
+    title?: string;
+    open?: boolean;
     autoHideDuration?: number | null | undefined;
-    resultAction?: boolean;
+    action?: (result: boolean) => void;
 }

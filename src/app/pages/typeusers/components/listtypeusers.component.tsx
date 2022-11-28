@@ -68,7 +68,7 @@ const ListTypeUserComponent: React.FC<Props> = ({setEditTypeUser}) => {
 								return (
 									<TableRow hover role="checkbox" tabIndex={-1} key={typeUser.id}>
 										<TableCell>
-											{typeUser.typeName}
+											{typeUser.name}
 										</TableCell>
 										<TableCell>
 											{typeUser.status ? "Active": "Inactive"}

@@ -12,12 +12,13 @@ interface Props {
     register: any;
     errors: any;
     type: string;
+	size?: "small" | "medium"
     fullWidth?: boolean | undefined;
     data: PropsOptions[];
     styles?: React.CSSProperties;
 }
 
-export const SelectOutlinedComponet: React.FC<Props> = ({ register, label, type, data, styles, errors, fullWidth }) => (
+export const SelectOutlinedComponet: React.FC<Props> = ({ register, label, type, data, size, styles, errors, fullWidth }) => (
    
 	<TextField
 		style={styles}
@@ -28,6 +29,7 @@ export const SelectOutlinedComponet: React.FC<Props> = ({ register, label, type,
 		InputLabelProps={{
 			shrink:true
 		}}
+		size={size ?? "small"}
 		margin='normal'
 		fullWidth={fullWidth}
 		error={errors[register["name"]] ? true : false}

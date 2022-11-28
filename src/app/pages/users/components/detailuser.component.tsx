@@ -3,8 +3,6 @@ import { Box, Button,  CardActions, CardContent, Grid, Typography } from "@mui/m
 import { IUser } from "../../../core/models/user/user";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { deleteUser, getAllUsers } from "../redux/users-actions";
-import SnackbarMajorVillageAction from "../../../components/snackbar/actionssnackbar";
-import SnackbarMajorVillage, { TransitionRight } from "../../../components/snackbar/snackbar.component";
 import { closeSnackBarActionsMajorVillage, closeSnackBarMajorVillage, openSnackBarActionsMajorVillage, openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
 
 interface Props {
@@ -36,18 +34,20 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
 		if (result) {
 			dispatch(deleteUser({ id:  userDetail?.id })).unwrap().then(async (response) => {
 				dispatch(closeSnackBarActionsMajorVillage());
-				// if (response?.userDeleted !== null) {
-				// 	await dispatch(openSnackBarMajorVillage({
-				// 		message: "User is deleted!",
-				// 		severity: "success",
-				// 	}));
-				// } else {
-				// 	await dispatch(openSnackBarMajorVillage({
-				// 		message: "Error user is not delete",
-				// 		severity: "error",
-				// 	}));
-				// 	console.error("Error request: ", error);
-				// }
+				if (response?.userDeleted !== null) {
+					dispatch(openSnackBarMajorVillage({
+						message: "User is deleted!",
+						severity: "success",
+						title: "Users"
+					}));
+				} else {
+					dispatch(openSnackBarMajorVillage({
+						message: "Error user is not delete",
+						severity: "error",
+						title: "Users"
+					}));
+					console.error("Error request: ", error);
+				}
 				await dispatch(getAllUsers());
 			});
 		}
@@ -55,36 +55,25 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
 
 	const createApplicationUser = async () => {
 		setType("add");
-		// await dispatch(openSnackBarActionsMajorVillage({
-		// 	message: "Do you assign username and password?",
-		// 	severity: "warning",
-		// }));
+		dispatch(openSnackBarActionsMajorVillage({
+			message: "Do you assign username and password?",
+			severity: "warning",
+			title: "Users",
+		}));
 	};
 
 	const operationDelete = async () => {
 		setType("delete");
-		// await dispatch(openSnackBarActionsMajorVillage({
-		// 	message: "Do you delete this user?",
-		// 	severity: "warning",
-		// }));
+		await dispatch(openSnackBarActionsMajorVillage({
+			title: "Users",
+			message: "Do you delete this user?",
+			severity: "warning",
+			action: (result: boolean) => { alert("result is ok "+result); }
+		}));
 	};
 
 	return (
 		<React.Fragment>
-			{/* <SnackbarMajorVillageAction
-				title={"User"}
-				handleClose={() => dispatch(closeSnackBarActionsMajorVillage())}
-				autoHideDuration={null}
-				resultAction={(e) => pushAcceptCallback(e, type)}
-				transition={TransitionRight} /> */}
-			{/* <SnackbarMajorVillage
-				title={"User"}
-				handleClose={() => {
-					dispatch(closeSnackBarMajorVillage());
-					onClose();
-				}}
-				autoHideDuration={3000}
-				transition={TransitionRight} /> */}
 			<Box>
 				<Grid>
 					<CardContent>
@@ -93,7 +82,7 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
                             Fullname
 						</Typography>
 						<Typography gutterBottom variant="h5" component="div">
-							{userDetail?.firstName} {userDetail?.middlename} {userDetail?.lastName} {userDetail?.surName}
+							{userDetail?.name} {userDetail?.middlename} {userDetail?.lastName} {userDetail?.surName}
 						</Typography>
 						<Typography variant="body2" color="text.secondary" >
                             Type identification
@@ -105,7 +94,7 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
                             Type user
 						</Typography>
 						<Typography gutterBottom variant="h5" component="div">
-							{userDetail?.typeUser?.typeName}
+							{userDetail?.typeUser?.name}
 						</Typography>
 						<Typography variant="body2" color="text.secondary" >
                             Email

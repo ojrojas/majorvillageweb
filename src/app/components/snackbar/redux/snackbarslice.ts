@@ -5,8 +5,9 @@ const initialOptions: MajorVillageSnackBarOptions = {
 	open: false,
 	message: "",
 	severity: "info",
-	autoHideDuration: undefined,
-	title: ""
+	title:undefined,
+	action:undefined,
+	autoHideDuration:undefined
 };
 
 interface State {
@@ -35,16 +36,19 @@ const snackBarSlice = createSlice({
 		},
 		openSnackBarActionsMajorVillage: (state, action: PayloadAction<MajorVillageSnackBarOptions>) => {
 			state.optionSnackBarActions.message = action.payload.message;
-			state.optionSnackBarActions.open = true;
+			state.optionSnackBarActions.title = action.payload.title;
 			state.optionSnackBarActions.severity = action.payload.severity;
-			state.optionSnackBar.title = action.payload.title;
-			state.optionSnackBar.autoHideDuration = action.payload.autoHideDuration;
+			state.optionSnackBarActions.autoHideDuration = action.payload.autoHideDuration;
+			state.optionSnackBarActions.action = action.payload.action;
+			state.optionSnackBarActions.open = true;
 		},
 		closeSnackBarActionsMajorVillage: (state) => {
 			state.optionSnackBarActions = initialOptions;
 		},
-		resultAction: (state, action: PayloadAction<boolean>) => {
-			state.optionSnackBarActions.resultAction=  action.payload
+		executeAction: (state, action: PayloadAction<boolean>) => {
+			console.log("optionAction is ", state.optionSnackBarActions.action);
+			if(state.optionSnackBarActions.action !== undefined)
+				state.optionSnackBarActions.action(action.payload);
 		}
 	}
 });
@@ -55,5 +59,5 @@ export const {
 	closeSnackBarMajorVillage,
 	openSnackBarActionsMajorVillage,
 	closeSnackBarActionsMajorVillage,
-	resultAction
+	executeAction,
 } = snackBarSlice.actions;

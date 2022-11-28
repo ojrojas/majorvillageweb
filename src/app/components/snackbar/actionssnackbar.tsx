@@ -1,11 +1,10 @@
 import React from "react";
 import Snackbar from "@mui/material/Snackbar";
-import { SlideProps } from "@mui/material/Slide";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button, CardActions, CardContent, CardHeader, Divider, IconButton, Paper, PaperProps, Stack, Typography } from "@mui/material";
 import styles from "./actionssnackbar.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { closeSnackBarActionsMajorVillage, resultAction } from "./redux/snackbarslice";
+import { closeSnackBarActionsMajorVillage, executeAction } from "./redux/snackbarslice";
 import { TransitionLeft } from "./snackbar.component";
 
 const CardSnackBar = React.forwardRef<HTMLDivElement, PaperProps>(function Alert(
@@ -18,23 +17,21 @@ const CardSnackBar = React.forwardRef<HTMLDivElement, PaperProps>(function Alert
 	);
 });
 
-type TransitionProps = Omit<SlideProps, "direction">;
-
 const SnackbarMajorVillageAction: React.FC = () => {
 	const snackBarState = useAppSelector(state => state.snack.optionSnackBarActions);
 	const dispatch = useAppDispatch();
 
 	const returnColor = (color: string) => {
 		switch (color) {
-			case "success":
-				return "green";
-			case "info":
-				return "blue";
-			case "warning":
-				return "orange";
-			case "error":
-				return "red";
-			default: return "info";
+		case "success":
+			return "green";
+		case "info":
+			return "blue";
+		case "warning":
+			return "orange";
+		case "error":
+			return "red";
+		default: return "info";
 		}
 	};
 
@@ -51,13 +48,13 @@ const SnackbarMajorVillageAction: React.FC = () => {
 						action={
 							<IconButton aria-label="settings" onClick={
 								() => {
-									dispatch(resultAction(false));
+									dispatch(executeAction(false));
 									dispatch(closeSnackBarActionsMajorVillage());
 								}}>
 								<CloseIcon />
 							</IconButton>
 						}
-						title={<Typography variant='h6' component='span'>{snackBarState.title}</Typography>}
+						title={snackBarState.title}
 						style={{ backgroundColor: returnColor(snackBarState.severity), color: "white" }}
 					/>
 					<CardContent className={styles.cardheader}>
@@ -65,10 +62,13 @@ const SnackbarMajorVillageAction: React.FC = () => {
 					</CardContent>
 					<Divider></Divider>
 					<CardActions>
-						<Button onClick={() => dispatch(resultAction(true))}> Accept </Button>
+						<Button onClick={() => { 
+							dispatch(executeAction(true));
+							dispatch(closeSnackBarActionsMajorVillage());
+						}}> Accept </Button>
 						<Button onClick={
 							() => {
-								dispatch(resultAction(false));
+								dispatch(executeAction(false));
 								dispatch(closeSnackBarActionsMajorVillage());
 							}}> Cancel </Button>
 					</CardActions>

@@ -3,10 +3,11 @@ import { MajorVillageSnackBarOptions } from "../../components/snackbar/majorvill
 import { useAppSelector } from "../../hooks";
 
 export const SnackBarMajorVillageContext = React.createContext<MajorVillageSnackBarOptions>({
-	autoHideDuration: undefined,
 	message: "",
 	severity: "info",
-	title: "",
+	title: undefined,
+	autoHideDuration: undefined,
+	action: undefined
 });
 
 interface Props {
@@ -15,14 +16,13 @@ interface Props {
 
 export const SnackBarMajorVillageProvider:React.FC<Props> = ({children}) => {
 	const {optionSnackBar, optionSnackBarActions} = useAppSelector(state => state.snack);
-
 	return (<SnackBarMajorVillageContext.Provider value={{
-		autoHideDuration: optionSnackBar.autoHideDuration || optionSnackBarActions.autoHideDuration,
-		message: optionSnackBar.message || optionSnackBarActions.message,
-		severity: optionSnackBar.severity || optionSnackBarActions.severity,
-		title: optionSnackBar.title || optionSnackBarActions.title,
-		resultAction: optionSnackBar.resultAction || optionSnackBarActions.resultAction,
-		open: optionSnackBar.open || optionSnackBarActions.open,
+		title: optionSnackBar.title ?? optionSnackBarActions.title,
+		autoHideDuration: optionSnackBar.autoHideDuration ?? optionSnackBarActions.autoHideDuration,
+		message: optionSnackBar.message ?? optionSnackBarActions.message,
+		severity: optionSnackBar.severity ?? optionSnackBarActions.severity,
+		action: optionSnackBar.action ?? optionSnackBarActions.action,
+		open: optionSnackBar.open ?? optionSnackBarActions.open,
 	}}>
 		{children}
 	</SnackBarMajorVillageContext.Provider>);

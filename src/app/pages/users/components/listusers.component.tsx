@@ -69,12 +69,12 @@ const ListUsersComponent: React.FC<ListUserProps> = ({setEditUser}) => {
 							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 							.map((user) => {
 								return (
-									<TableRow hover role="checkbox" tabIndex={-1} key={user.identification+user.lastName+user.firstName}>
+									<TableRow hover role="checkbox" tabIndex={-1} key={user.identification+user.lastName+user.name}>
 										<TableCell>
-											{user.firstName} {user.lastName}
+											{user.name} {user.lastName}
 										</TableCell>
 										<TableCell>
-											{user.typeUser?.typeName} 
+											{user.typeUser?.name} 
 										</TableCell>
 										<TableCell>
 											{user.status ? "Active": "Inactive"}
