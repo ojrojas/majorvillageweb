@@ -11,7 +11,7 @@ interface Props {
     shrinkProp?: boolean;
     styles?: React.CSSProperties;
     defaultValue?: string;
-    size?: "small" | "medium"
+    size?: "small" | "medium";
     inputProps?: InputBaseComponentProps;
 }
 

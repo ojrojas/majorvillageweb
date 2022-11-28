@@ -15,6 +15,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useAppDispatch } from "../../hooks";
+import {logout} from "../../pages/login/redux/login.actions";
+import { useNavigate } from "react-router-dom";
+import { RouteConstanstPage } from "../../core/constants/route.pages.constants";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -57,16 +62,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 interface Props {
-    onClick: (e:React.KeyboardEvent | React.MouseEvent) => void;
+	onClick: (e: React.KeyboardEvent | React.MouseEvent) => void;
 }
 
-const  SearchAppBar: React.FC<Props> = ({onClick}) =>  {
+const SearchAppBar: React.FC<Props> = ({ onClick }) => {
+	const dispacth = useAppDispatch();
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-    React.useState<null | HTMLElement>(null);
-
+	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 	const isMenuOpen = Boolean(anchorEl);
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+	const navigateOn = useNavigate();
+
 
 	const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -83,6 +89,11 @@ const  SearchAppBar: React.FC<Props> = ({onClick}) =>  {
 
 	const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
 		setMobileMoreAnchorEl(event.currentTarget);
+	};
+
+	const logoutHere = () => {
+		dispacth(logout());
+		navigateOn(RouteConstanstPage.login);
 	};
 
 	const menuId = "primary-search-account-menu";
@@ -104,6 +115,7 @@ const  SearchAppBar: React.FC<Props> = ({onClick}) =>  {
 		>
 			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
+			<MenuItem onClick={logoutHere}><LogoutIcon /> Logout</MenuItem>
 		</Menu>
 	);
 
@@ -154,6 +166,15 @@ const  SearchAppBar: React.FC<Props> = ({onClick}) =>  {
 					<AccountCircle />
 				</IconButton>
 				<p>Profile</p>
+				<IconButton
+					onClick={logoutHere}
+					size="large"
+					aria-label="logout users"
+					aria-controls="primary-search-account-menu-logout"
+					aria-haspopup="true"
+					color="inherit">
+					<LogoutIcon />
+				</IconButton>
 			</MenuItem>
 		</Menu>
 	);
@@ -176,7 +197,7 @@ const  SearchAppBar: React.FC<Props> = ({onClick}) =>  {
 						noWrap
 						component="div"
 						sx={{ display: { xs: "none", sm: "block" } }}>
-            Major Village
+						Major Village
 					</Typography>
 					<Search>
 						<SearchIconWrapper>

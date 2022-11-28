@@ -39,7 +39,6 @@ const UsersPage: React.FC = () => {
 		handleToggleModal();
 	};
 
-
 	return (
 		<Grid container sx={{ padding: 1, height: "100vh" }} gridRow={1}>
 			<Grid item xs={12} md={12} lg={12} xl={12}>

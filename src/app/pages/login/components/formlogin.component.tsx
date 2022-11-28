@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, colors, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Button, colors, Grid, Paper, Typography } from "@mui/material";
 import InputOutlinedComponent from "./../../../components/forms/input.component";
 import styles from "./formlogin.module.css";
 import { useForm } from "react-hook-form";
@@ -12,8 +12,7 @@ import { ILoginApplicationResponse } from "../../../core/dtos/userapplication/lo
 import { updateLogged } from "../redux/login.slice";
 import { RouteConstanstPage } from "../../../core/constants/route.pages.constants";
 import { useNavigate } from "react-router-dom";
-import { closeSnackBarMajorVillage, openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
-import SnackbarMajorVillage, { TransitionLeft } from "../../../components/snackbar/snackbar.component";
+import { openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
 
 const FormLoginComponent: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -58,7 +57,7 @@ const FormLoginComponent: React.FC = () => {
 						<Typography variant={"h5"} component='span' color={"var(--primary)"}>
 							Major Village
 						</Typography>
-						<Divider />
+						<hr className={styles.lines}/>
 						<InputOutlinedComponent
 							label="Username"
 							type={"text"}
@@ -71,7 +70,6 @@ const FormLoginComponent: React.FC = () => {
 							type={"password"}
 							register={register("password", { required: true })}
 							errors={errors} />
-						<Divider />
 						<Grid className={styles.buttons}>
 							<Button
 								onClick={onSubmit}

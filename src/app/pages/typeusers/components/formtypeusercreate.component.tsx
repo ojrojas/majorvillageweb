@@ -92,7 +92,7 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose, typeUserExists,
 								<InputOutlinedComponent
 									label={"Type Name"}
 									type={"text"}
-									register={register("typeName", { required: true })}
+									register={register("name", { required: true })}
 									errors={errors}
 								/>
 							</Grid>

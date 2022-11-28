@@ -7,14 +7,13 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import useYupValidationResolver from "../../../components/forms/resolver.function";
 import SelectOutlinedComponet, { PropsOptions } from "../../../components/forms/select.component";
 import SwitchCompontent from "../../../components/forms/switch.component";
-import SnackbarMajorVillage, { TransitionRight } from "../../../components/snackbar/snackbar.component";
 import { ITypeIdentification } from "../../../core/models/typeidentification/typeidentification";
 import { ITypeUser } from "../../../core/models/typeuser/typeuser";
 import { createUser, updateUser, getAllUsers } from "../redux/users-actions";
-import { openSnackBarMajorVillage, closeSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
 import LoadingBackdropComponent from "../../../components/loaders/backdrop.component";
 import InputOutlinedComponent from "../../../components/forms/input.component";
 import { schema } from "../schemas/formusercreate.schema";
+import { openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
 
 interface createUserForm {
     onClose: () => void;
@@ -40,7 +39,7 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 		const newOptions: PropsOptions[] = [];
 		if (options === undefined) return newOptions;
 		options.forEach(item => {
-			newOptions.push({ value: item.id, label: item.typeName });
+			newOptions.push({ value: item.id, label: item.name });
 		});
 		return newOptions;
 	};
@@ -60,36 +59,38 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 			user.createdBy = state.user?.id as string;
 			user.createdOn = new Date();
 			dispatch(createUser({ user })).unwrap().then(async (response) => {
-				// if (response?.userCreated === null) {
-				// 	dispatch(openSnackBarMajorVillage({
-				// 		message: `Error, ${JSON.stringify(error, null, 2)}`,
-				// 		severity: "error"
-				// 	}));
-				// }
-				// else {
-				// 	dispatch(openSnackBarMajorVillage({
-				// 		message: "User created!",
-				// 		severity: "success"
-				// 	}));
-				// }
+				if (response?.userCreated === null) {
+					dispatch(openSnackBarMajorVillage({
+						message: `Error, ${JSON.stringify(error, null, 2)}`,
+						severity: "error",
+						title: "Users"
+					}));
+				}
+				else {
+					dispatch(openSnackBarMajorVillage({
+						message: "User created!",
+						severity: "success",
+						title: "Users"
+					}));
+				}
 			});
 		}
 		else {
 			user.modifiedBy = state.user?.id as string;
 			user.modifiedOn = new Date();
 			await dispatch(updateUser({ user })).unwrap().then(async (response) => {
-				// if (response?.userUpdated === null) {
-				// 	await dispatch(openSnackBarMajorVillage({
-				// 		message: `Error, ${JSON.stringify(error, null, 2)}`,
-				// 		severity: "error"
-				// 	}));
-				// }
-				// else {
-				// 	await dispatch(openSnackBarMajorVillage({
-				// 		message: "User created!",
-				// 		severity: "success"
-				// 	}));
-				// }
+				if (response?.userUpdated === null) {
+					await dispatch(openSnackBarMajorVillage({
+						message: `Error, ${JSON.stringify(error, null, 2)}`,
+						severity: "error"
+					}));
+				}
+				else {
+					await dispatch(openSnackBarMajorVillage({
+						message: "User created!",
+						severity: "success"
+					}));
+				}
 			});
 		}
 		await dispatch(getAllUsers());
@@ -97,11 +98,6 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 
 	return (
 		<React.Fragment>
-			{/* <SnackbarMajorVillage
-				handleClose={() => { dispatch(closeSnackBarMajorVillage()); onClose(); }}
-				title={"User"}
-				autoHideDuration={2000}
-				transition={TransitionRight} /> */}
 			<LoadingBackdropComponent open={loading} />
 			<Box className={styles.formpaper} component={"form"} onSubmit={handlerSubmit}>
 				<Grid container spacing={3}>
@@ -112,7 +108,7 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 									fullWidth
 									label={"First Name"}
 									type={"text"}
-									register={register("firstName", { required: true })}
+									register={register("name", { required: true })}
 									errors={errors}
 								/>
 							</Grid>

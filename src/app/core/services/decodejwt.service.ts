@@ -8,7 +8,7 @@ export class DecodeJwt {
 				return undefined;
 			const user = jwt_decode<any>(token);
 			return {
-				firstName: user.FirstName,
+				name: user.Name,
 				middlename: user.Middlename,
 				lastName: user.LastName,
 				surName: user.SurName,
