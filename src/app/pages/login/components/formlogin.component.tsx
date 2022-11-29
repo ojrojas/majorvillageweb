@@ -13,11 +13,12 @@ import { updateLogged } from "../redux/login.slice";
 import { RouteConstanstPage } from "../../../core/constants/route.pages.constants";
 import { useNavigate } from "react-router-dom";
 import { openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
+import LoadingBackdropComponent from "../../../components/loaders/backdrop.component";
 
 const FormLoginComponent: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const navigateOn = useNavigate();
-	const { logged } = useAppSelector(state => state.login);
+	const { logged, loading } = useAppSelector(state => state.login);
 	const { register, handleSubmit, formState: { errors } } = useForm<ILoginApplicationRequest>({
 		mode: "all",
 		resolver: useYupValidationResolver(schema)
@@ -82,6 +83,7 @@ const FormLoginComponent: React.FC = () => {
 					</Grid>
 				</Paper>
 			</Grid>
+			<LoadingBackdropComponent open={loading}/>
 		</React.Fragment>
 	);
 };

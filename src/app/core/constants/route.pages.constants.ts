@@ -2,5 +2,7 @@ export const RouteConstanstPage = {
 	root:"/",
 	login: "/login",
 	dashboard:"/dashboard",
-	users: "/users"
+	users: "/users",
+	typeIdentifications: "/typeidentifications",
+	typeUsers: "/typeusers"
 };

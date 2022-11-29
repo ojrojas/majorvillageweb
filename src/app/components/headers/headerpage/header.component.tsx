@@ -14,7 +14,7 @@ const HeaderComponent: React.FC<Props> = ({ namePage, subNamePage, actionButtons
 		<Grid container flexGrow={1} className={styles.container}>
 			<Grid item>
 				<Grid container className={styles.containerName}>
-					<Grid item md={4}>
+					<Grid item md={6}>
 						<Typography variant={"h6"} component='h6'>
 							{namePage}
 						</Typography>

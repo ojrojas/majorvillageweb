@@ -3,9 +3,7 @@ import { Box, Button, CardActions, CardContent, Grid, Typography } from "@mui/ma
 import { deleteTypeIdentification } from "../redux/typeidentification-actions";
 import { ITypeIdentification } from "../../../core/models/typeidentification/typeidentification";
 import { useAppDispatch } from "../../../hooks";
-import { closeSnackBarActionsMajorVillage, closeSnackBarMajorVillage, openSnackBarActionsMajorVillage, openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
-import SnackbarMajorVillageAction from "../../../components/snackbar/actionssnackbar";
-import SnackbarMajorVillage, { TransitionLeft } from "../../../components/snackbar/snackbar.component";
+import { openSnackBarActionsMajorVillage, openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
 
 interface Props {
     detailTypeIdentification?: ITypeIdentification;
@@ -17,42 +15,32 @@ const DetailTypeIdentificationComponent: React.FC<Props> = ({ detailTypeIdentifi
 
 	const operationDelete = (result: boolean) => {
 		if(result){
-			// dispatch(deleteTypeIdentification({id: detailTypeIdentification?.id})).unwrap().then(async (response)=> {
-			// 	if(response.typeIdentificationDeleted)
-			// 		await dispatch(openSnackBarMajorVillage({
-			// 			message: "Type identification deleted success",
-			// 			severity: "success"
-			// 		}));
-			// 	else await dispatch(openSnackBarMajorVillage({
-			// 		message: "Error, do not deleted type identification",
-			// 		severity: "error"
-			// 	}));
-			// });
+			dispatch(deleteTypeIdentification({id: detailTypeIdentification?.id})).unwrap().then(async (response)=> {
+				if(response.typeIdentificationDeleted)
+					await dispatch(openSnackBarMajorVillage({
+						message: "Type identification deleted success",
+						severity: "success",
+						title: "Type Identification"
+					}));
+				else await dispatch(openSnackBarMajorVillage({
+					message: "Error, do not deleted type identification",
+					severity: "error"
+				}));
+			});
 		}
 	};
 
 	const onPushDelete = () => {
-		// dispatch(openSnackBarActionsMajorVillage({
-		// 	message: "Do you sure delete this type identification?",
-		// 	severity: "info"
-		// }));
+		dispatch(openSnackBarActionsMajorVillage({
+			message: "Do you sure delete this type identification?",
+			severity: "info",
+			title: "Type Identification",
+			action: operationDelete
+		}));
 	};
 
 	return (
 		<React.Fragment>
-			{/* <SnackbarMajorVillageAction 
-				title={"Type identification"} 
-				handleClose={ ()=> dispatch(closeSnackBarActionsMajorVillage()) } 
-				resultAction={(result) => operationDelete(result)} 
-				transition={TransitionLeft} 
-				autoHideDuration={3000} /> */}
-			{/* <SnackbarMajorVillage 
-				handleClose={()=> {
-					dispatch(closeSnackBarMajorVillage());
-					onClose();
-				}} 
-				title={"Type identification"} 
-				transition={TransitionLeft} /> */}
 			<Box>
 				<Grid>
 					<CardContent>

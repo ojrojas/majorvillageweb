@@ -6,11 +6,9 @@ import styles from "./formtypeidentificationcreate.module.css";
 import { schema } from "../schemas/formtypeidentificationcreate.schema";
 import useYupValidationResolver from "../../../components/forms/resolver.function";
 import SwitchCompontent from "../../../components/forms/switch.component";
-import LoadingBackdropComponent from "../../../components/loaders/backdrop.component";
-import SnackbarMajorVillage, { TransitionLeft } from "../../../components/snackbar/snackbar.component";
 import { ITypeIdentification } from "../../../core/models/typeidentification/typeidentification";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { closeSnackBarMajorVillage, openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
+import { openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
 import InputOutlinedComponent from "../../../components/forms/input.component";
 
 interface Props {
@@ -19,9 +17,9 @@ interface Props {
     typeComponent: "EDIT" | "CREATE"
 }
 
-const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentificationExists, typeComponent, onClose }) => {
+const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentificationExists, typeComponent }) => {
 	const dispatch = useAppDispatch();
-	const { loading, error } = useAppSelector(x => x.typeIdentifications);
+	const { error } = useAppSelector(x => x.typeIdentifications);
 	const { user } = useAppSelector(x => x.login);
 
 	const { register, handleSubmit, formState: { errors } } = useForm<ITypeIdentification>({
@@ -29,11 +27,6 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 		defaultValues: typeIdentificationExists,
 		resolver: useYupValidationResolver(schema)
 	});
-
-	const handlerClose = async () => {
-		await dispatch(closeSnackBarMajorVillage());
-		onClose();
-	};
 
 	const handlerSubmit = handleSubmit(async (typeIdentification: ITypeIdentification) => {
 		if (user === null) throw Error("Error operation exception");
@@ -82,7 +75,6 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 
 	return (
 		<React.Fragment>
-			<LoadingBackdropComponent open={loading} />
 			<Box className={styles.formpaper} component={"form"} onSubmit={handlerSubmit}>
 				<Grid container spacing={3}>
 					<Grid item xs={12}>

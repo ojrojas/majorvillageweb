@@ -1,13 +1,14 @@
 import React from "react";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Paper, Divider } from "@mui/material";
 import ListTypeUserComponent from "./components/listtypeusers.component";
 import { getAllTypeUsers } from "./redux/typeuser-actions";
 import FormTypeUserCreateComponent from "./components/formtypeusercreate.component";
 import DialogComponent from "../../components/modal/dialog.component";
 import { ITypeUser } from "../../core/models/typeuser/typeuser";
 import { useAppDispatch } from "../../hooks";
+import HeaderComponent from "../../components/headers/headerpage/header.component";
 
-const TypeUsersPage: React.FC = ()=>{
+const TypeUsersPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const [open, setOpen] = React.useState<boolean>(false);
 	const [user, setTypeUser] = React.useState<ITypeUser | undefined>(undefined);
@@ -21,7 +22,7 @@ const TypeUsersPage: React.FC = ()=>{
 		setOpen(!open);
 	};
 
-	const handleCreateUser = () => {
+	const handleCreateTypeUser = () => {
 		setTypeComponent("CREATE");
 		setTypeUser(undefined);
 		handleToggleModal();
@@ -35,24 +36,28 @@ const TypeUsersPage: React.FC = ()=>{
 	};
 
 	return (
-		<Grid container spacing={1}>
-			<Grid alignItems={"center"}>
-				<h2>List Users</h2>
-				<DialogComponent id={"modal-create-edit-typeusers"}
-					titleDialog={typeComponent === "EDIT" ? "Edit Type User" : "Create Type User"}
-					onClose={() => {
-						setOpen(false);
-					}}
-					open={open}
-					maxWidth={"md"}
-					fullWidth={true}>
-					<FormTypeUserCreateComponent typeComponent={typeComponent} typeUserExists={user} onClose={handleToggleModal} />
-				</DialogComponent>
-				<Button onClick={handleCreateUser}>Add Type Users</Button>
+		<React.Fragment>
+			<Grid container sx={{ padding: 1, height: "100vh" }} gridRow={1}>
+				<Grid item xs={12} md={12} lg={12} xl={12}>
+					<Paper elevation={4} sx={{ backgroundColor: "#fff", height: "99%", padding: 5 }}>
+						<HeaderComponent namePage="Type users" subNamePage="List Users" actionButtons={<Button variant="outlined" onClick={handleCreateTypeUser}>Add</Button>} />
+						<Divider />
+						<br />
+						<ListTypeUserComponent setEditTypeUser={handleEditOpenModal} />
+						<DialogComponent id={"modal-create-edit-typeusers"}
+							titleDialog={typeComponent === "EDIT" ? "Edit Type User" : "Create Type User"}
+							onClose={() => {
+								setOpen(false);
+							}}
+							open={open}
+							maxWidth={"md"}
+							fullWidth={true}>
+							<FormTypeUserCreateComponent typeComponent={typeComponent} typeUserExists={user} onClose={handleToggleModal} />
+						</DialogComponent>
+					</Paper>
+				</Grid>
 			</Grid>
-			<ListTypeUserComponent setEditTypeUser={handleEditOpenModal} />
-		</Grid>
-	);
+		</React.Fragment>);
 };
 
 export default TypeUsersPage;
