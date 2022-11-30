@@ -1,7 +1,7 @@
 import { object, string } from "yup";
 
 export const schema = object({
-	firstName: string().required("First name is required"),
+	name: string().required("First name is required"),
 	lastName: string().required("Last name is required"),
 	identification: string().required("Identification is required"),
 	email: string().email().required("Email is required"),

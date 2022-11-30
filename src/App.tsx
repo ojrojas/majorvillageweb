@@ -1,5 +1,5 @@
-import { CssBaseline } from "@mui/material";
 import React from "react";
+import { CssBaseline } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import SnackbarMajorVillageAction from "./app/components/snackbar/actionssnackbar";
 import SnackbarMajorVillage from "./app/components/snackbar/snackbar.component";
@@ -11,8 +11,8 @@ function App() {
 	const { theme } = useTheme();
 	return (
 		<div style={{ ...theme as React.CSSProperties }}>
+			<CssBaseline />
 			<SnackBarMajorVillageProvider>
-				<CssBaseline />
 				<RouterProvider router={router} />
 				<SnackbarMajorVillage />
 				<SnackbarMajorVillageAction />

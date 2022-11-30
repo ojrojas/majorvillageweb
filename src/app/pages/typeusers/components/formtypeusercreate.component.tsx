@@ -7,19 +7,17 @@ import styles from "./formtypeusercreate.module.css";
 import useYupValidationResolver from "../../../components/forms/resolver.function";
 import SwitchCompontent from "../../../components/forms/switch.component";
 import LoadingBackdropComponent from "../../../components/loaders/backdrop.component";
-import SnackbarMajorVillage, { TransitionLeft } from "../../../components/snackbar/snackbar.component";
 import { ITypeUser } from "../../../core/models/typeuser/typeuser";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { closeSnackBarMajorVillage, openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
+import { openSnackBarMajorVillage } from "../../../components/snackbar/redux/snackbarslice";
 import InputOutlinedComponent from "../../../components/forms/input.component";
 
 interface Props {
-    onClose: () => void;
     typeUserExists?: ITypeUser;
     typeComponent: "EDIT" | "CREATE"
 }
 
-const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose, typeUserExists, typeComponent }) => {
+const FormTypeUserCreateComponent: React.FC<Props> = ({ typeUserExists, typeComponent }) => {
 	const dispatch = useAppDispatch();
 	const { loading, error } = useAppSelector(x => x.typeUsers);
 	const { user } = useAppSelector(x => x.login);
@@ -30,47 +28,46 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose, typeUserExists,
 		resolver: useYupValidationResolver(schema)
 	});
 
-	const handlerClose = async () => {
-		await dispatch(closeSnackBarMajorVillage());
-		onClose();
-	};
-
 	const handlerSubmit = handleSubmit(async (typeUser: ITypeUser) => {
+		// eslint-disable-next-line no-debugger
+		debugger;
 		if (user === null) throw Error("Error operation exception");
 		if (typeComponent === "CREATE") {
 			typeUser.createdBy = user?.id as string;
 			typeUser.createdOn = new Date();
 			await dispatch(createTypeUser({ typeUser })).unwrap().then(async (response) => {
-				// if (response?.typeUserCreated === null) {
-				// 	await dispatch(openSnackBarMajorVillage({
-				// 		message: `Error, ${JSON.stringify(error, null, 2)}`,
-				// 		severity: "error"
-				// 	}));
-				// }
-				// else {
-				// 	await dispatch(openSnackBarMajorVillage({
-				// 		message: "Type User created!",
-				// 		severity: "success"
-				// 	}));
-				// }
+				if (response?.typeUserCreated === null) {
+					await dispatch(openSnackBarMajorVillage({
+						message: `Error, ${JSON.stringify(error, null, 2)}`,
+						severity: "error",
+						title: "Type users"
+					}));
+				}
+				else {
+					await dispatch(openSnackBarMajorVillage({
+						message: "Type User created!",
+						severity: "success",
+						title: "Type users"
+					}));
+				}
 			});
 		}
 		else {
 			typeUser.modifiedBy = user?.id as string;
 			typeUser.modifiedOn = new Date();
 			await dispatch(updateTypeUser({ typeUser })).unwrap().then(async (response) => {
-				// if (response?.typeUserUpdated === null) {
-				// 	await dispatch(openSnackBarMajorVillage({
-				// 		message: `Error, ${JSON.stringify(error, null, 2)}`,
-				// 		severity: "error"
-				// 	}));
-				// }
-				// else {
-				// 	await dispatch(openSnackBarMajorVillage({
-				// 		message: "Type User updated!",
-				// 		severity: "success"
-				// 	}));
-				// }
+				if (response?.typeUserUpdated === null) {
+					await dispatch(openSnackBarMajorVillage({
+						message: `Error, ${JSON.stringify(error, null, 2)}`,
+						severity: "error"
+					}));
+				}
+				else {
+					await dispatch(openSnackBarMajorVillage({
+						message: "Type User updated!",
+						severity: "success"
+					}));
+				}
 			});
 		}
 		await dispatch(getAllTypeUsers());
@@ -78,13 +75,8 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose, typeUserExists,
 
 	return (
 		<React.Fragment>
-			{/* <SnackbarMajorVillage
-				handleClose={handlerClose}
-				title={"Type Users"}
-				autoHideDuration={2000}
-				transition={TransitionLeft} /> */}
 			<LoadingBackdropComponent open={loading} />
-			<Box className={styles.formpaper} component={"form"} onSubmit={handlerSubmit}>
+			<form className={styles.formpaper} onSubmit={handlerSubmit}>
 				<Grid container spacing={3}>
 					<Grid item xs={12}>
 						<Grid container>
@@ -98,9 +90,9 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose, typeUserExists,
 							</Grid>
 							<Grid item lg={4} md={4} sm={4} xs={12}>
 								<SwitchCompontent
-									defaultValue={typeUserExists?.status ? true : false}
-									label="Status"
-									register={register("status", { required: false })}
+									defaultValue={typeUserExists?.state ? true : false}
+									label="State"
+									register={register("state", { required: false })}
 									errors={undefined}
 								/>
 							</Grid>
@@ -108,7 +100,7 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose, typeUserExists,
 					</Grid>
 				</Grid>
 				<Button variant="text" className={styles.buttonlogin} type="submit">{typeComponent} Type user</Button>
-			</Box>
+			</form>
 		</React.Fragment>
 	);
 };

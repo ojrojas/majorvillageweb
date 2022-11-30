@@ -77,7 +77,7 @@ const ListUsersComponent: React.FC<ListUserProps> = ({setEditUser}) => {
 											{user.typeUser?.name} 
 										</TableCell>
 										<TableCell>
-											{user.status ? "Active": "Inactive"}
+											{user.state ? "Active": "Inactive"}
 										</TableCell>
 										<TableCell>
 											<Button onClick={()=> setEditUser(user)}>Edit</Button>

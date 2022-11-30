@@ -10,4 +10,5 @@ export interface MenuItem {
     route:string;
     icon: ReactNode;
     subMenus?: MenuItem[];
+    haveSubMenus:boolean;
 }

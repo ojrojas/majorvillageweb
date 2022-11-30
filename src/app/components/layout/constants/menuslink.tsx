@@ -5,26 +5,40 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 import GroupIcon from "@mui/icons-material/Group";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export const MenuLinkList: MenuItem[] = [
 	{
 		name: "Dashboard",
 		icon: <DashboardIcon />,
-		route: RouteConstanstPage.dashboard
+		route: RouteConstanstPage.dashboard,
+		haveSubMenus: false
 	},
 	{
-		name: "Users",
-		icon: <PersonIcon />,
-		route: RouteConstanstPage.users
-	},
-	{
-		name: "Type Identifications",
-		icon: <BadgeIcon />,
-		route: RouteConstanstPage.typeIdentifications
-	},
-	{
-		name: "Type Users",
-		icon: <GroupIcon />,
-		route: RouteConstanstPage.typeUsers
+		name: "Settings",
+		icon: <SettingsIcon />,
+		route: "",
+		haveSubMenus: true,
+		subMenus: [
+			{
+				name: "Users",
+				icon: <PersonIcon />,
+				route: RouteConstanstPage.users,
+				haveSubMenus: false
+			},
+			{
+				name: "Type Identifications",
+				icon: <BadgeIcon />,
+				route: RouteConstanstPage.typeIdentifications,
+				haveSubMenus: false
+			},
+			{
+				name: "Type Users",
+				icon: <GroupIcon />,
+				route: RouteConstanstPage.typeUsers,
+				haveSubMenus: false
+			}
+		]
 	}
+
 ];

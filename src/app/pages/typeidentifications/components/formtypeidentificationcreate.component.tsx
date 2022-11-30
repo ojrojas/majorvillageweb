@@ -89,9 +89,9 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 							</Grid>
 							<Grid item lg={4} md={4} sm={4} xs={12}>
 								<SwitchCompontent
-									defaultValue={typeIdentificationExists?.status ? true : false}
-									label="Status"
-									register={register("status", { required: false })}
+									defaultValue={typeIdentificationExists?.state ? true : false}
+									label="State"
+									register={register("state", { required: false })}
 									errors={undefined}
 								/>
 							</Grid>

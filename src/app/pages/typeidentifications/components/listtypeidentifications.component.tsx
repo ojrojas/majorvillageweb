@@ -71,7 +71,7 @@ const ListTypeIdentificationComponent: React.FC<Props> = ({setEditTypeIdentifica
 											{typeIdentification.name}
 										</TableCell>
 										<TableCell>
-											{typeIdentification.status ? "Active" : "Inactive"}
+											{typeIdentification.state ? "Active" : "Inactive"}
 										</TableCell>
 										<TableCell>
 											<Button onClick={()=> setEditTypeIdentification(typeIdentification)}>Edit</Button>

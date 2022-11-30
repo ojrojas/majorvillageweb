@@ -23,7 +23,7 @@ export class DecodeJwt {
 				modifiedOn: user.ModifiedOn,
 				createdBy: user.CreatedBy,
 				createdOn: user.CreatedOn,
-				status: user.Status
+				state: user.State
 			};
 		} catch (error) {
 			console.log("error decode token ==>", error);

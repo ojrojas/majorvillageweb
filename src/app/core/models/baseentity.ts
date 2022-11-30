@@ -4,5 +4,5 @@ export interface IBaseEntity {
     modifiedOn?: Date | string;
     createdBy: string;
     createdOn: Date | string;
-    status: boolean;
+    state: boolean;
 }

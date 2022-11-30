@@ -8,11 +8,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import AppBarSearchComponent from "./../appbar/appbar.component";
 import { Outlet, useNavigate } from "react-router-dom";
-import { colors, CssBaseline, Divider, Grid, styled, Tooltip, Typography } from "@mui/material";
+import { Collapse, colors, CssBaseline, Divider, Grid, styled, Tooltip, Typography } from "@mui/material";
 import { MenuLinkList } from "./constants/menuslink";
 import styles from "./drawercomponent.module.css";
 import { useAppSelector } from "../../hooks";
 import { RouteConstanstPage } from "../../core/constants/route.pages.constants";
+import { MenuItem } from "../../core/models/menulink.model";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -25,19 +27,32 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const SwipeableTemporaryDrawer: React.FC = () => {
 	const [state, setState] = React.useState<boolean>(false);
 	const { logged } = useAppSelector(login => login.login);
+	const [expanded, setExpanded] = React.useState<string | false>(false);
 	const navigateOn = useNavigate();
 
-	React.useEffect(()=> {
-		if(!logged) {
+	React.useEffect(() => {
+		if (!logged)
 			navigateOn(RouteConstanstPage.login);
-		}
 	}, [logged]);
 
+	const haveSubMenusOnNavigate = (menuItem: MenuItem) => {
+		if (menuItem.subMenus) {
+			if (expanded)
+				setExpanded(false);
+			else
+				setExpanded(menuItem.haveSubMenus ? menuItem.name : false);
+		} else {
+			setState(false);
+			setExpanded(false);
+			navigateOn(menuItem.route);
+		}
+	};
+
 	const toggleDrawer =
-		(open: boolean) => 
+		(open: boolean) =>
 			(event: React.KeyboardEvent | React.MouseEvent) => {
-				if (event && event.type === "keydown" && 
-				((event as React.KeyboardEvent).key === "Tab" || (event as React.KeyboardEvent).key === "Shift")) {
+				if (event && event.type === "keydown" &&
+					((event as React.KeyboardEvent).key === "Tab" || (event as React.KeyboardEvent).key === "Shift")) {
 					return;
 				}
 				setState(open);
@@ -46,9 +61,7 @@ const SwipeableTemporaryDrawer: React.FC = () => {
 	const list = () => (
 		<Box
 			sx={{ width: 230 }}
-			role="presentation"
-			onClick={toggleDrawer(false)}
-			onKeyDown={toggleDrawer(false)}>
+			role="presentation">
 			<CssBaseline />
 			<DrawerHeader>
 				{state ? <Typography style={{ textAlign: "center", width: "100%" }} variant='h6' component={"span"} >
@@ -61,7 +74,7 @@ const SwipeableTemporaryDrawer: React.FC = () => {
 					<ListItem key={menu.name + index} disablePadding sx={{ display: "block", }}>
 						<Tooltip title={menu.name} placement='right'>
 							<ListItemButton
-								onClick={() => { navigateOn(menu.route); }}
+								onClick={() => { haveSubMenusOnNavigate(menu); }}
 								sx={{
 									minHeight: 48,
 									justifyContent: state ? "initial" : "center",
@@ -76,12 +89,27 @@ const SwipeableTemporaryDrawer: React.FC = () => {
 									{menu.icon}
 								</ListItemIcon>
 								<ListItemText primary={menu.name} sx={{ opacity: state ? 1 : 0, color: colors.grey[800] }} />
+								{menu.haveSubMenus ? (menu.name === expanded ? <ExpandLess /> : <ExpandMore />) : null}
 							</ListItemButton>
 						</Tooltip>
+						<Collapse in={menu.name === expanded} timeout="auto" unmountOnExit>
+							<List component="div" disablePadding>
+								{menu.subMenus && menu.subMenus.map((menuItem, index) => (
+									<Tooltip key={menuItem.name + index} title={menuItem.name} placement='right'>
+										<ListItemButton sx={{ pl: 4 }} onClick={() => haveSubMenusOnNavigate(menuItem)}>
+											<ListItemIcon>
+												{menuItem.icon}
+											</ListItemIcon>
+											<ListItemText primary={menuItem.name} />
+										</ListItemButton>
+									</Tooltip>
+								))}
+							</List>
+						</Collapse>
 					</ListItem>
 				))}
 			</List>
-		</Box>
+		</Box >
 	);
 
 	return (

@@ -37,7 +37,7 @@ const TypeUsersPage: React.FC = () => {
 
 	return (
 		<React.Fragment>
-			<Grid container sx={{ padding: 1, height: "100vh" }} gridRow={1}>
+			<Grid container sx={{ height: "100vh" }} gridRow={1}>
 				<Grid item xs={12} md={12} lg={12} xl={12}>
 					<Paper elevation={4} sx={{ backgroundColor: "#fff", height: "99%", padding: 5 }}>
 						<HeaderComponent namePage="Type users" subNamePage="List Users" actionButtons={<Button variant="outlined" onClick={handleCreateTypeUser}>Add</Button>} />
@@ -52,7 +52,7 @@ const TypeUsersPage: React.FC = () => {
 							open={open}
 							maxWidth={"md"}
 							fullWidth={true}>
-							<FormTypeUserCreateComponent typeComponent={typeComponent} typeUserExists={user} onClose={handleToggleModal} />
+							<FormTypeUserCreateComponent typeComponent={typeComponent} typeUserExists={user} />
 						</DialogComponent>
 					</Paper>
 				</Grid>

@@ -102,6 +102,12 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
 						<Typography gutterBottom variant="h5" component="div">
 							{userDetail?.email}
 						</Typography>
+						<Typography variant="body2" color="text.secondary" >
+                            State
+						</Typography>
+						<Typography gutterBottom variant="h5" component="div">
+							{userDetail?.state}
+						</Typography>
 					</CardContent>
 					<CardActions>
 						<Button color='error' variant='outlined' onClick={() => operationDelete()}> Delete </Button>

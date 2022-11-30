@@ -178,9 +178,9 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 							</Grid>
 							<Grid item md={4} sm={4} xs={12}>
 								<SwitchCompontent
-									defaultValue={userExists?.status ? true : false}
-									label="Status"
-									register={register("status", { required: false })}
+									defaultValue={userExists?.state ? true : false}
+									label="State"
+									register={register("state", { required: false })}
 									errors={undefined}
 								/>
 							</Grid>

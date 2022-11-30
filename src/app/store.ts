@@ -20,10 +20,8 @@ export const store = configureStore({
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}),
 });
 
-
 store.subscribe(
 	throttle(() => {
-
 		if (process.env.NODE_ENV === "development") {
 			console.info("state", store.getState());
 			console.info("actions",store.dispatch);
