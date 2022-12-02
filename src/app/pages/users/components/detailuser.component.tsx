@@ -88,7 +88,7 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
                             Type identification
 						</Typography>
 						<Typography gutterBottom variant="h5" component="div">
-							{userDetail?.typeIdentification?.name}
+							{userDetail?.typeIdentification?.name} {userDetail?.identification}
 						</Typography>
 						<Typography variant="body2" color="text.secondary" >
                             Type user
@@ -100,7 +100,7 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
                             State
 						</Typography>
 						<Typography gutterBottom variant="h5" component="div">
-							{userDetail?.state}
+							{userDetail?.state ? "Active" : "Inactive"}
 						</Typography>
 					</CardContent>
 					<CardActions>

@@ -50,6 +50,12 @@ const DetailTypeIdentificationComponent: React.FC<Props> = ({ detailTypeIdentifi
 						<Typography gutterBottom variant="h5" component="div">
 							{detailTypeIdentification?.name}
 						</Typography>
+						<Typography variant="body2" color="text.secondary" >
+                            State
+						</Typography>
+						<Typography gutterBottom variant="h5" component="div">
+							{detailTypeIdentification?.state ? "Active" : "Inactive"}
+						</Typography>
 					</CardContent>
 					<CardActions>
 						<Button variant="outlined" color="error" onClick={()=> onPushDelete()}> Delete </Button>

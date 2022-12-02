@@ -33,6 +33,8 @@ const SwipeableTemporaryDrawer: React.FC = () => {
 	React.useEffect(() => {
 		if (!logged)
 			navigateOn(RouteConstanstPage.login);
+		else
+			navigateOn(RouteConstanstPage.dashboard);
 	}, [logged]);
 
 	const haveSubMenusOnNavigate = (menuItem: MenuItem) => {
