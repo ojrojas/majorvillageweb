@@ -5,7 +5,7 @@ import { InputBaseComponentProps, TextField } from "@mui/material";
 interface Props {
     label: string;
     register: any;
-    type: string;
+    type: React.HTMLInputTypeAttribute | undefined;
     errors?: any;
     fullWidth?: boolean | undefined;
     shrinkProp?: boolean;

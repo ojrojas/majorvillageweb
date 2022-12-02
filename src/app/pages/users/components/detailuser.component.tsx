@@ -82,7 +82,7 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
                             Fullname
 						</Typography>
 						<Typography gutterBottom variant="h5" component="div">
-							{userDetail?.name} {userDetail?.middlename} {userDetail?.lastName} {userDetail?.surName}
+							{userDetail?.name} {userDetail?.middleName} {userDetail?.lastName} {userDetail?.surName}
 						</Typography>
 						<Typography variant="body2" color="text.secondary" >
                             Type identification
@@ -95,12 +95,6 @@ const DetailUserComponent: React.FC<Props> = ({ userDetail, onClose }) => {
 						</Typography>
 						<Typography gutterBottom variant="h5" component="div">
 							{userDetail?.typeUser?.name}
-						</Typography>
-						<Typography variant="body2" color="text.secondary" >
-                            Email
-						</Typography>
-						<Typography gutterBottom variant="h5" component="div">
-							{userDetail?.email}
 						</Typography>
 						<Typography variant="body2" color="text.secondary" >
                             State

@@ -4,11 +4,12 @@ import { ILoginApplicationRequest } from "../../../core/dtos/userapplication/log
 import { ILoginApplicationResponse } from "../../../core/dtos/userapplication/loginapplicationresponse";
 import HttpClientApplication from "../../../core/services/api.service";
 
-export const login = createAsyncThunk<ILoginApplicationResponse, ILoginApplicationRequest>("auth/login", async (login: ILoginApplicationRequest) => {
-	const api = new HttpClientApplication();
-	const response = await api.Post<ILoginApplicationResponse>(RouteHttps.userApplication.login,login);
-	return response;
-});
+export const login = createAsyncThunk<ILoginApplicationResponse, ILoginApplicationRequest>(
+	"auth/login", async (login: ILoginApplicationRequest) => {
+		const api = new HttpClientApplication();
+		const response = await api.Post<ILoginApplicationResponse>(RouteHttps.identity.userApplication.login,login);
+		return response;
+	});
 
 export const logout = createAsyncThunk("auth/logged", async () => {
 	return false;

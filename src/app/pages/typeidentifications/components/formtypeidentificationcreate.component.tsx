@@ -17,7 +17,7 @@ interface Props {
     typeComponent: "EDIT" | "CREATE"
 }
 
-const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentificationExists, typeComponent }) => {
+const FormTypeIdentificationCreateComponent: React.FC<Props> = ({onClose, typeIdentificationExists, typeComponent }) => {
 	const dispatch = useAppDispatch();
 	const { error } = useAppSelector(x => x.typeIdentifications);
 	const { user } = useAppSelector(x => x.login);
@@ -38,8 +38,10 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 					await dispatch(openSnackBarMajorVillage({
 						message: `Error, ${JSON.stringify(error, null, 2)}`,
 						severity: "error", 
-						title: "Type Identification"
+						title: "Type Identification",
+						autoHideDuration:3000
 					}));
+					onClose();
 				}
 				else {
 					await dispatch(openSnackBarMajorVillage({
@@ -47,6 +49,7 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 						severity: "success", 
 						title: "Type Identification"
 					}));
+					onClose();
 				}
 			});
 		}
@@ -58,15 +61,19 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({ typeIdentifica
 					await dispatch(openSnackBarMajorVillage({
 						message: `Error, ${JSON.stringify(error, null, 2)}`,
 						severity: "error",
-						title: "Type Identification"
+						title: "Type Identification",
+						autoHideDuration:3000
 					}));
+					onClose();
 				}
 				else {
 					await dispatch(openSnackBarMajorVillage({
 						message: "Type identification updated! ",
 						severity: "success",
-						title: "Type Identification"
+						title: "Type Identification",
+						autoHideDuration:3000
 					}));
+					onClose();
 				}
 			});
 		}

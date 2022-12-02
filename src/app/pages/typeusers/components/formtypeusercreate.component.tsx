@@ -13,11 +13,12 @@ import { openSnackBarMajorVillage } from "../../../components/snackbar/redux/sna
 import InputOutlinedComponent from "../../../components/forms/input.component";
 
 interface Props {
+	onClose: () => void;
     typeUserExists?: ITypeUser;
     typeComponent: "EDIT" | "CREATE"
 }
 
-const FormTypeUserCreateComponent: React.FC<Props> = ({ typeUserExists, typeComponent }) => {
+const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose,  typeUserExists, typeComponent }) => {
 	const dispatch = useAppDispatch();
 	const { loading, error } = useAppSelector(x => x.typeUsers);
 	const { user } = useAppSelector(x => x.login);
@@ -40,15 +41,19 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ typeUserExists, typeComp
 					await dispatch(openSnackBarMajorVillage({
 						message: `Error, ${JSON.stringify(error, null, 2)}`,
 						severity: "error",
-						title: "Type users"
+						title: "Type users", 
+						autoHideDuration:3000
 					}));
+					onClose();
 				}
 				else {
 					await dispatch(openSnackBarMajorVillage({
 						message: "Type User created!",
 						severity: "success",
-						title: "Type users"
+						title: "Type users",
+						autoHideDuration:3000
 					}));
+					onClose();
 				}
 			});
 		}
@@ -59,14 +64,20 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ typeUserExists, typeComp
 				if (response?.typeUserUpdated === null) {
 					await dispatch(openSnackBarMajorVillage({
 						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error"
+						severity: "error",
+						title : "Type users",
+						autoHideDuration:3000
 					}));
+					onClose();
 				}
 				else {
 					await dispatch(openSnackBarMajorVillage({
 						message: "Type User updated!",
-						severity: "success"
+						severity: "success",
+						title: "Type users",
+						autoHideDuration:3000
 					}));
+					onClose();
 				}
 			});
 		}

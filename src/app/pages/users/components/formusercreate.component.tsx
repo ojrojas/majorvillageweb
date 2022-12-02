@@ -21,7 +21,7 @@ interface createUserForm {
     typeComponent: "EDIT" | "CREATE"
 }
 
-const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists, typeComponent }) => {
+const FormUserCreateComponent: React.FC<createUserForm> = ({userExists, typeComponent, onClose }) => {
 	const dispatch = useAppDispatch();
 	const { loading, error } = useAppSelector(state => state.user);
 	const userApp = useAppSelector(state => state.login).user;
@@ -58,19 +58,22 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 		if (typeComponent === "CREATE") {
 			user.createdBy = state.user?.id as string;
 			user.createdOn = new Date();
-			dispatch(createUser({ user })).unwrap().then(async (response) => {
-				if (response?.userCreated === null) {
-					dispatch(openSnackBarMajorVillage({
-						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error",
-						title: "Users"
-					}));
-				}
-				else {
+			dispatch(createUser({ user })).then(async (response) => {
+				if(response.meta.requestStatus === "fulfilled"){
 					dispatch(openSnackBarMajorVillage({
 						message: "User created!",
 						severity: "success",
-						title: "Users"
+						title: "Users", 
+						autoHideDuration: 3000
+					}));
+					onClose();
+				}
+				else {
+					dispatch(openSnackBarMajorVillage({
+						message: `Error, ${JSON.stringify(error, null, 2)}`,
+						severity: "error",
+						title: "Users",
+						autoHideDuration: 3000
 					}));
 				}
 			});
@@ -78,18 +81,24 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 		else {
 			user.modifiedBy = state.user?.id as string;
 			user.modifiedOn = new Date();
-			await dispatch(updateUser({ user })).unwrap().then(async (response) => {
-				if (response?.userUpdated === null) {
+			await dispatch(updateUser({ user })).then(async (response) => {
+				if (response.meta.requestStatus === "fulfilled") {
 					await dispatch(openSnackBarMajorVillage({
-						message: `Error, ${JSON.stringify(error, null, 2)}`,
-						severity: "error"
+						message: "User Updated!",
+						severity: "success",
+						title: "Users",
+						autoHideDuration: 3000
 					}));
+					onClose();
 				}
 				else {
 					await dispatch(openSnackBarMajorVillage({
-						message: "User created!",
-						severity: "success"
+						message: `Error, ${JSON.stringify(error, null, 2)}`,
+						severity: "error",
+						title: "Users",
+						autoHideDuration: 3000
 					}));
+					onClose();
 				}
 			});
 		}
@@ -103,7 +112,7 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 				<Grid container spacing={3}>
 					<Grid item xs={12} md={12} sm={12}>
 						<Grid container spacing={1}>
-							<Grid item md={4} sm={4} xs={12}>
+							<Grid item md={3} sm={3} xs={12}>
 								<InputOutlinedComponent
 									fullWidth
 									label={"First Name"}
@@ -112,16 +121,16 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 									errors={errors}
 								/>
 							</Grid>
-							<Grid item md={4} sm={4} xs={12}>
+							<Grid item md={3} sm={3} xs={12}>
 								<InputOutlinedComponent
 									fullWidth
 									label={"Middlename"}
 									type={"text"}
-									register={register("middlename", { required: false })}
+									register={register("middleName", { required: false })}
 									errors={errors}
 								/>
 							</Grid>
-							<Grid item md={4} sm={4} xs={12}>
+							<Grid item md={3} sm={3} xs={12}>
 								<InputOutlinedComponent
 									fullWidth
 									label={"Last Name"}
@@ -130,7 +139,7 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 									errors={errors}
 								/>
 							</Grid>
-							<Grid item md={4} sm={4} xs={12}>
+							<Grid item md={3} sm={3} xs={12}>
 								<InputOutlinedComponent
 									fullWidth
 									label={"Sur Name"}
@@ -139,7 +148,7 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 									errors={errors}
 								/>
 							</Grid>
-							<Grid item md={4} sm={4} xs={12}>
+							<Grid item md={3} sm={3} xs={12}>
 								<SelectOutlinedComponet
 									fullWidth
 									label={"Type Identification"}
@@ -148,7 +157,7 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 									errors={errors}
 									data={createDataTypeIdentificationOptions(getAllTypeIdentifications?.typeIdentifications)} />
 							</Grid>
-							<Grid item md={4} sm={4} xs={12}>
+							<Grid item md={3} sm={3} xs={12}>
 								<InputOutlinedComponent
 									fullWidth
 									label={"Identification"}
@@ -157,7 +166,17 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 									errors={errors}
 								/>
 							</Grid>
-							<Grid item md={4} sm={4} xs={12}>
+							<Grid item md={3} sm={3} xs={12}>
+								<InputOutlinedComponent
+									fullWidth
+									label={"Birth Date"}
+									type={"date"}
+									shrinkProp={true}
+									register={register("birthDate", { required: false })}
+									errors={errors}
+								/>
+							</Grid>
+							<Grid item md={3} sm={3} xs={12}>
 								<SelectOutlinedComponet
 									fullWidth
 									label={"Type User"}
@@ -167,21 +186,30 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({ onClose, userExists
 									data={createDataTypeUserOptions(getAllTypeUserResponse?.typeUsers)}
 								/>
 							</Grid>
-							<Grid item md={4} sm={4} xs={12}>
-								<InputOutlinedComponent
-									fullWidth
-									label={"Email"}
-									type={"email"}
-									register={register("email", { required: true })}
-									errors={errors}
-								/>
-							</Grid>
-							<Grid item md={4} sm={4} xs={12}>
+							<Grid item md={3} sm={3} xs={12}>
 								<SwitchCompontent
 									defaultValue={userExists?.state ? true : false}
 									label="State"
 									register={register("state", { required: false })}
-									errors={undefined}
+									errors={errors}
+								/>
+							</Grid>
+							<Grid item md={12} sm={12} xs={12}>
+								<InputOutlinedComponent
+									fullWidth
+									label={"Address"}
+									type={"text"}
+									register={register("address", { required: true })}
+									errors={errors}
+								/>
+							</Grid>
+							<Grid item md={12} sm={12} xs={12}>
+								<InputOutlinedComponent
+									fullWidth
+									label={"Contact"}
+									type={"tel"}
+									register={register("contact", { required: true })}
+									errors={errors}
 								/>
 							</Grid>
 						</Grid>

@@ -14,34 +14,36 @@ import HttpClientApplication from "../../../core/services/api.service";
 export const getAllTypeIdentifications = createAsyncThunk<IGetAllTypeIdentificationResponse>(
 	"typeidentification/getalltypeidentification", async () => {
 		const api = new HttpClientApplication();
-		const response = api.Get<IGetAllTypeIdentificationResponse>(RouteHttps.typeidentifications.getalltypeidentification);
+		const response = api.Get<IGetAllTypeIdentificationResponse>(RouteHttps.identity.typeidentifications.getalltypeidentification);
 		return response;
 	});
 
 export const createTypeIdentification = createAsyncThunk<ICreateTypeIdentificationResponse, ICreateTypeIdentificationRequest>(
 	"typeidentification/createTypeIdentification", async (request: ICreateTypeIdentificationRequest) => {
 		const api = new HttpClientApplication();
-		const response = await api.Post<ICreateTypeIdentificationResponse>(RouteHttps.typeidentifications.createtypeidentification, request);
+		const response = await api.Post<ICreateTypeIdentificationResponse>(RouteHttps.identity.typeidentifications.createtypeidentification, request);
 		return response;
 	});
 
 export const updateTypeIdentification = createAsyncThunk(
 	"typeidentification/updatetypeidentification", async (request: IUpdateTypeIdentificationRequest) => {
 		const api = new HttpClientApplication();
-		const response = await api.Patch<IUpdateTypeIdentificationResponse>(RouteHttps.typeidentifications.updatetypeidentification, request);
+		const response = await api.Patch<IUpdateTypeIdentificationResponse>(RouteHttps.identity.typeidentifications.updatetypeidentification, request);
 		return response;
 	});
 
 export const deleteTypeIdentification = createAsyncThunk(
 	"typeidentification/deletetypeidentification", async (request: IDeleteTypeIdentificationRequest) => {
 		const api = new HttpClientApplication();
-		const response = api.Delete<IDeleteTypeIdentificationResponse>(RouteHttps.typeidentifications.deletetypeidentification + request.id);
+		const response = api.Delete<IDeleteTypeIdentificationResponse>(RouteHttps.identity.typeidentifications.deletetypeidentification + request.id);
 		return response;
 	});
 
 export const getTypeIdentificationById = createAsyncThunk(
 	"typeIdentification/getTypeIdentificationById", async (request : IGetTypeIdentificationByIdRequest) => {
 		const api = new HttpClientApplication();
-		const response = await api.Get<IGetTypeIdentificationByIdResponse>(RouteHttps.typeidentifications.gettypeidentificationbyid+request.id);
+		const response = await api.Get<IGetTypeIdentificationByIdResponse>(
+			RouteHttps.identity.typeidentifications.gettypeidentificationbyid+request.id
+		);
 		return response;
 	});

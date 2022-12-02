@@ -16,7 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import {logout} from "../../pages/login/redux/login.actions";
 import { useNavigate } from "react-router-dom";
 import { RouteConstanstPage } from "../../core/constants/route.pages.constants";
@@ -67,6 +67,7 @@ interface Props {
 
 const SearchAppBar: React.FC<Props> = ({ onClick }) => {
 	const dispacth = useAppDispatch();
+	const { user } = useAppSelector(state => state.login);
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 	const isMenuOpen = Boolean(anchorEl);
@@ -223,6 +224,7 @@ const SearchAppBar: React.FC<Props> = ({ onClick }) => {
 								<NotificationsIcon />
 							</Badge>
 						</IconButton>
+						<Typography variant="body2" component="h6" style={{"lineHeight": "50px"}}>{user?.name} {user?.lastName}</Typography>
 						<IconButton
 							size="large"
 							edge="end"

@@ -8,7 +8,7 @@ export const createUserApplication = createAsyncThunk(
 	"userapplication/createuserapplication", async (request: ICreateUserApplicationRequest)=> {
 		const api = new HttpClientApplication();
 		const response = await api.Post<ICreateUserApplicationResponse>(
-			RouteHttps.userApplication.createserapplication,
+			RouteHttps.identity.userApplication.createserapplication,
 			request
 		);
 		return response;

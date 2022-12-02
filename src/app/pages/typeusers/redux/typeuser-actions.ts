@@ -12,27 +12,27 @@ import HttpClientApplication from "../../../core/services/api.service";
 export const getAllTypeUsers = createAsyncThunk<IGetAllTypeUserResponse>(
 	"typeuser/getalltypeusers", async () => {
 		const api = new HttpClientApplication();
-		const response = await api.Get<IGetAllTypeUserResponse>(RouteHttps.typeusers.getalltypeuser);
+		const response = await api.Get<IGetAllTypeUserResponse>(RouteHttps.identity.typeusers.getalltypeuser);
 		return response;
 	});
 
 export const createTypeUser = createAsyncThunk<ICreateTypeUserResponse, ICreateTypeUserRequest>(
 	"typeuser/createtypeuser", async (createTypeUser: ICreateTypeUserRequest) => {
 		const api = new HttpClientApplication();
-		const response = await api.Post<ICreateTypeUserResponse>(RouteHttps.typeusers.createtypeuser, createTypeUser);
+		const response = await api.Post<ICreateTypeUserResponse>(RouteHttps.identity.typeusers.createtypeuser, createTypeUser);
 		return response;
 	});
 
 export const updateTypeUser = createAsyncThunk<IUpdateTypeUserResponse, IUpdateTypeUserRequest>(
 	"typeuser/updatetypeuser", async (updateTypeUser: IUpdateTypeUserRequest) => {
 		const api = new HttpClientApplication();
-		const response = await api.Patch<IUpdateTypeUserResponse>(RouteHttps.typeusers.updatetypeuser, updateTypeUser);
+		const response = await api.Patch<IUpdateTypeUserResponse>(RouteHttps.identity.typeusers.updatetypeuser, updateTypeUser);
 		return response;
 	});
 
 export const deleteTypeUser = createAsyncThunk(
 	"typeuser/deletetypeuser", async (request: IDeleteTypeIdentificationRequest) => {
 		const api = new HttpClientApplication();
-		const response = await api.Delete<IDeleteTypeUserResponse>(RouteHttps.typeusers.deletetypeuser + request.id);
+		const response = await api.Delete<IDeleteTypeUserResponse>(RouteHttps.identity.typeusers.deletetypeuser + request.id);
 		return response;
 	});

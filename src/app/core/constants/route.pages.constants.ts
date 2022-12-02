@@ -4,5 +4,7 @@ export const RouteConstanstPage = {
 	dashboard:"/dashboard",
 	users: "/users",
 	typeIdentifications: "/typeidentifications",
-	typeUsers: "/typeusers"
+	typeUsers: "/typeusers", 
+	courses: "/Courses", 
+	enrollment: "/enrollments"
 };

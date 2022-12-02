@@ -4,13 +4,15 @@ import { ITypeUser } from "../typeuser/typeuser";
 
 export interface IUser extends IBaseEntity {
     name: string;
-    middlename?: string;
+    middleName: string;
     lastName: string;
-    surName?: string;
+    surName: string;
     identification: string;
-    email: string;
-    typeIdentificationId: string;
     typeIdentification?: ITypeIdentification;
-    typeUserId: string;
+    typeIdentificationId: string;
+    birthDate: Date | string;
+    address: string
+    contact: string;
     typeUser?: ITypeUser;
+    typeUserId: string;
 }

@@ -52,7 +52,7 @@ const TypeUsersPage: React.FC = () => {
 							open={open}
 							maxWidth={"md"}
 							fullWidth={true}>
-							<FormTypeUserCreateComponent typeComponent={typeComponent} typeUserExists={user} />
+							<FormTypeUserCreateComponent onClose={handleToggleModal} typeComponent={typeComponent} typeUserExists={user} />
 						</DialogComponent>
 					</Paper>
 				</Grid>

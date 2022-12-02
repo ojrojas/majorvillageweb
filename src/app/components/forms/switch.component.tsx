@@ -11,7 +11,7 @@ interface Props {
     defaultValue?:boolean;
 }
 
-const SwitchCompontent: React.FC<Props> = ({ label, styles, labelPlacement,defaultValue,size, register }) => {
+const SwitchCompontent: React.FC<Props> = ({ label, styles, labelPlacement,defaultValue,size,errors,  register }) => {
 	return (
 		<FormControl component="fieldset" variant="standard" margin="normal">
 			<FormGroup>
@@ -27,6 +27,7 @@ const SwitchCompontent: React.FC<Props> = ({ label, styles, labelPlacement,defau
 					labelPlacement={labelPlacement}
 				/>
 			</FormGroup>
+			{errors[register["name"]] ? errors[register["name"]].message : ""}
 		</FormControl>
 	);
 };

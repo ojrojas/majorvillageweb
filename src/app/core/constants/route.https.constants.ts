@@ -1,30 +1,37 @@
-const routeApi = process.env.REACT_APP_ROUTE_API_IDENTITY;
+const routeIdentityApi = process.env.REACT_APP_ROUTE_API_IDENTITY;
 
 export const RouteHttps = {
-	userApplication: {
-		login: `${routeApi}login`,
-		createserapplication: `${routeApi}createuserapplication`,
-		DeleteUserApplication: `${routeApi}deleteuserapplication`,
+	identity: {
+		userApplication: {
+			login: `${routeIdentityApi}login`,
+			createserapplication: `${routeIdentityApi}createuserapplication`,
+			DeleteUserApplication: `${routeIdentityApi}deleteuserapplication`,
+		},
+		users: {
+			getallusers: `${routeIdentityApi}getalluser`,
+			createuser: `${routeIdentityApi}createuser`,
+			deleteuser: `${routeIdentityApi}deleteuser/`,
+			getUserbyid: `${routeIdentityApi}getUserbyid/`,
+			updateuser: `${routeIdentityApi}updateuser`,
+		},
+		typeusers: {
+			createtypeuser: `${routeIdentityApi}createtypeuser`,
+			deletetypeuser: `${routeIdentityApi}deletetypeuser/`,
+			getalltypeuser: `${routeIdentityApi}getalltypeuser`,
+			gettypeuserbyid: `${routeIdentityApi}gettypeuserbyid/`,
+			updatetypeuser: `${routeIdentityApi}updatetypeuser`,
+		},
+		typeidentifications: {
+			createtypeidentification: `${routeIdentityApi}createtypeidentification`,
+			deletetypeidentification: `${routeIdentityApi}deletetypeidentification/`,
+			getalltypeidentification: `${routeIdentityApi}getalltypeidentification`,
+			gettypeidentificationbyid: `${routeIdentityApi}gettypeidentificationbyid/`,
+			updatetypeidentification: `${routeIdentityApi}updatetypeidentification`,
+		}
 	},
-	users: {
-		getallusers: `${routeApi}getalluser`,
-		createuser: `${routeApi}createuser`,
-		deleteuser: `${routeApi}deleteuser/`,
-		getUserbyid: `${routeApi}getUserbyid/`,
-		updateuser: `${routeApi}updateuser`,
-	},
-	typeusers: {
-		createtypeuser: `${routeApi}createtypeuser`,
-		deletetypeuser: `${routeApi}deletetypeuser/`,
-		getalltypeuser: `${routeApi}getalltypeuser`,
-		gettypeuserbyid: `${routeApi}gettypeuserbyid/`,
-		updatetypeuser: `${routeApi}updatetypeuser`,
-	},
-	typeidentifications: {
-		createtypeidentification: `${routeApi}createtypeidentification`,
-		deletetypeidentification: `${routeApi}deletetypeidentification/`,
-		getalltypeidentification: `${routeApi}getalltypeidentification`,
-		gettypeidentificationbyid: `${routeApi}gettypeidentificationbyid/`,
-		updatetypeidentification: `${routeApi}updatetypeidentification`,
+	school: {
+		courses: {
+			createcourse: ""
+		}
 	}
 };
