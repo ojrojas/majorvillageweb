@@ -30,8 +30,6 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose,  typeUserExists
 	});
 
 	const handlerSubmit = handleSubmit(async (typeUser: ITypeUser) => {
-		// eslint-disable-next-line no-debugger
-		debugger;
 		if (user === null) throw Error("Error operation exception");
 		if (typeComponent === "CREATE") {
 			typeUser.createdBy = user?.id as string;
@@ -53,6 +51,7 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose,  typeUserExists
 						title: "Type users",
 						autoHideDuration:3000
 					}));
+					dispatch(getAllTypeUsers());
 					onClose();
 				}
 			});
@@ -78,6 +77,7 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose,  typeUserExists
 						autoHideDuration:3000
 					}));
 					onClose();
+					dispatch(getAllTypeUsers());
 				}
 			});
 		}
@@ -104,7 +104,7 @@ const FormTypeUserCreateComponent: React.FC<Props> = ({ onClose,  typeUserExists
 									defaultValue={typeUserExists?.state ? true : false}
 									label="State"
 									register={register("state", { required: false })}
-									errors={undefined}
+									errors={errors}
 								/>
 							</Grid>
 						</Grid>

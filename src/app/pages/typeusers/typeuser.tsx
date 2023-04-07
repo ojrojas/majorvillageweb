@@ -41,8 +41,8 @@ const TypeUsersPage: React.FC = () => {
 				<Grid item xs={12} md={12} lg={12} xl={12}>
 					<Paper elevation={4} sx={{ backgroundColor: "#fff", height: "99%", padding: 5 }}>
 						<HeaderComponent namePage="Type users" subNamePage="List Users" actionButtons={<Button variant="outlined" onClick={handleCreateTypeUser}>Add</Button>} />
-						<Divider />
 						<br />
+						<Divider />
 						<ListTypeUserComponent setEditTypeUser={handleEditOpenModal} />
 						<DialogComponent id={"modal-create-edit-typeusers"}
 							titleDialog={typeComponent === "EDIT" ? "Edit Type User" : "Create Type User"}

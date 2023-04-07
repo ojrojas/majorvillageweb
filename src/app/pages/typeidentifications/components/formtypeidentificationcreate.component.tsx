@@ -49,6 +49,7 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({onClose, typeId
 						severity: "success", 
 						title: "Type Identification"
 					}));
+					dispatch(getAllTypeIdentifications());
 					onClose();
 				}
 			});
@@ -73,6 +74,7 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({onClose, typeId
 						title: "Type Identification",
 						autoHideDuration:3000
 					}));
+					dispatch(getAllTypeIdentifications());
 					onClose();
 				}
 			});
@@ -99,7 +101,7 @@ const FormTypeIdentificationCreateComponent: React.FC<Props> = ({onClose, typeId
 									defaultValue={typeIdentificationExists?.state ? true : false}
 									label="State"
 									register={register("state", { required: false })}
-									errors={undefined}
+									errors={errors}
 								/>
 							</Grid>
 						</Grid>

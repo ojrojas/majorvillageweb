@@ -59,13 +59,14 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({userExists, typeComp
 			user.createdBy = state.user?.id as string;
 			user.createdOn = new Date();
 			dispatch(createUser({ user })).then(async (response) => {
-				if(response.meta.requestStatus === "fulfilled"){
+				if(response.meta.requestStatus === "fulfilled") {
 					dispatch(openSnackBarMajorVillage({
 						message: "User created!",
 						severity: "success",
 						title: "Users", 
 						autoHideDuration: 3000
 					}));
+					dispatch(getAllUsers());
 					onClose();
 				}
 				else {
@@ -89,6 +90,7 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({userExists, typeComp
 						title: "Users",
 						autoHideDuration: 3000
 					}));
+					dispatch(getAllUsers());
 					onClose();
 				}
 				else {
@@ -170,7 +172,7 @@ const FormUserCreateComponent: React.FC<createUserForm> = ({userExists, typeComp
 								<InputOutlinedComponent
 									fullWidth
 									label={"Birth Date"}
-									type={"date"}
+									type="date"
 									shrinkProp={true}
 									register={register("birthDate", { required: false })}
 									errors={errors}

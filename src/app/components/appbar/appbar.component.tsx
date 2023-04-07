@@ -17,7 +17,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {logout} from "../../pages/login/redux/login.actions";
+import { logout } from "../../pages/login/redux/login.actions";
 import { useNavigate } from "react-router-dom";
 import { RouteConstanstPage } from "../../core/constants/route.pages.constants";
 
@@ -224,7 +224,7 @@ const SearchAppBar: React.FC<Props> = ({ onClick }) => {
 								<NotificationsIcon />
 							</Badge>
 						</IconButton>
-						<Typography variant="body2" component="h6" style={{"lineHeight": "50px"}}>{user?.name} {user?.lastName}</Typography>
+						<Typography variant="body2" component="h6" style={{ "lineHeight": "50px" }}>{user?.name} {user?.lastName}</Typography>
 						<IconButton
 							size="large"
 							edge="end"
